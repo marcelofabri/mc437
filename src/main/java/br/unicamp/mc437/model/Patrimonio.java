@@ -56,6 +56,9 @@ public class Patrimonio {
 	@Column(name="documentoFiscal", length=50)
 	private String documentoFiscal;
 	
+	@Column(name="imovel", length=50)
+	private String imovel;
+
 	@Column(name="andar")
 	private Character andar;
 	
@@ -156,6 +159,14 @@ public class Patrimonio {
 
 	public void setDocumentoFiscal(String documentoFiscal) {
 		this.documentoFiscal = documentoFiscal;
+	}
+	
+	public String getImovel() {
+		return imovel;
+	}
+
+	public void setImovel(String imovel) {
+		this.imovel = imovel;
 	}
 
 	public Character getAndar() {
