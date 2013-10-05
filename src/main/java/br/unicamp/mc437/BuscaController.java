@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import br.unicamp.mc437.model.Patrimonio;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("")
 public class BuscaController {
  
 	@PersistenceContext(unitName = "mc437PersistenceUnit")
@@ -27,8 +27,46 @@ public class BuscaController {
 	  
 		Query query = entityManager.createQuery("SELECT p FROM Patrimonio p");
 		
-		ModelAndView mav = new ModelAndView("busca");
+		ModelAndView mav = new ModelAndView("busca.jsp");
 	    mav.addObject("lista", query.getResultList());
+	    
+		return mav;
+	}
+	
+	@RequestMapping(value = "/home", method = RequestMethod.GET)
+	@Transactional
+	public String home(ModelMap model) {
+		return "home.html";
+	}
+	
+	@RequestMapping(value = "/home2", method = RequestMethod.GET)
+	@Transactional
+	public ModelAndView home2(ModelMap model) {
+		ModelAndView mav = new ModelAndView("home2.html");
+	    
+		return mav;
+	}
+	
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@Transactional
+	public ModelAndView login(ModelMap model) {
+		ModelAndView mav = new ModelAndView("login.jsp");
+	    
+		return mav;
+	}
+	
+	@RequestMapping(value = "/erro", method = RequestMethod.GET)
+	@Transactional
+	public ModelAndView erro(ModelMap model) {
+		ModelAndView mav = new ModelAndView("erro.html");
+	    
+		return mav;
+	}
+	
+	@RequestMapping(value = "/upload", method = RequestMethod.GET)
+	@Transactional
+	public ModelAndView upload(ModelMap model) {
+		ModelAndView mav = new ModelAndView("upload.jsp");
 	    
 		return mav;
 	}

@@ -13,8 +13,8 @@
 		<title>Sistema de Controle de Patrimônio - Instituto de Computação</title>
 		
 		<style type="text/css" title="currentStyle">
-			@import "../media/css/demo_page.css";
-			@import "../media/css/jquery.dataTables.css";
+			@import "media/css/demo_page.css";
+			@import "media/css/jquery.dataTables.css";
 		</style>
 		
 		<style>
@@ -33,8 +33,8 @@
 			}
 		</style>
 		
-		<script type="text/javascript" language="javascript" src="../media/js/jquery-1.10.2.js"></script>
-		<script type="text/javascript" language="javascript" src="../media/js/jquery.dataTables.js"></script>
+		<script type="text/javascript" language="javascript" src="media/js/jquery-1.10.2.js"></script>
+		<script type="text/javascript" language="javascript" src="media/js/jquery.dataTables.js"></script>
 		<script type="text/javascript" charset="utf-8">
 			$(document).ready(function()
 			{
@@ -71,10 +71,10 @@
 	<body id="dt_example">
 		
 		<div id="header">
-			<a href="home2.html" style="margin-left: 5%">Home</a>
-			<a href="busca.jsp" style="margin-left: 5%">Busca</a>
-			<a href="upload.jsp" style="margin-left: 5%">Enviar arquivo</a>
-			<a href="home.html" style="margin-left: 5%">Logout</a>		
+			<a href="home2" style="margin-left: 5%">Home</a>
+			<a href="busca" style="margin-left: 5%">Busca</a>
+			<a href="upload" style="margin-left: 5%">Enviar arquivo</a>
+			<a href="home" style="margin-left: 5%">Logout</a>		
 		</div>
 		
 		<div id="container">

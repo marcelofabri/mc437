@@ -3,17 +3,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="br.unicamp.mc437.Database" %>
 
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<link rel="shortcut icon" type="image/ico" href="http://www.ic.unicamp.br/themes/siteictheme/logo.png" />
-		<title>Sistema de Controle de Patrimônio - Instituto de Computação</title>
+		<title>Sistema de Controle de Patrim&ocirc;nio - Instituto de Computa&ccedil;&atilde;o</title>
 		
 		<style type="text/css" title="currentStyle">
-			@import "../media/css/demo_page.css";
-			@import "../media/css/jquery.dataTables.css";
+			@import "media/css/demo_page.css";
+			@import "media/css/jquery.dataTables.css";
 		</style>
 		
 		<style>
@@ -32,8 +31,8 @@
 			}
 		</style>
 		
-		<script type="text/javascript" language="javascript" src="../media/js/jquery-1.10.2.js"></script>
-		<script type="text/javascript" language="javascript" src="../media/js/jquery.dataTables.js"></script>
+		<script type="text/javascript" language="javascript" src="media/js/jquery-1.10.2.js"></script>
+		<script type="text/javascript" language="javascript" src="media/js/jquery.dataTables.js"></script>
 		<script type="text/javascript" charset="utf-8">
 			$(document).ready(function()
 			{
@@ -78,13 +77,13 @@
 		
 		<div id="container">
 			<div class="full_width big">
-				Sistema de Controle de Patrimônio - Instituto de Computação
+				Sistema de Controle de Patrim&ocirc;nio - Instituto de Computa&ccedil;&atilde;o
 			</div>
 			
 			<div>
-				<h1>Atualização de planilha</h1>
+				<h1>Atualiza&ccedil;&atilde;o de planilha</h1>
 			</div>
-			<form method="post" action="upload">
+			<form method="post" action="uploadArquivo">
 				<input type="file" name="filePath" accept="application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"></input>
 				<input type="submit" value="Enviar"></input>
 			</form>
