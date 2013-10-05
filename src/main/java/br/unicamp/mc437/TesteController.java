@@ -23,20 +23,15 @@ public class TesteController {
 	@Transactional
 	public @ResponseBody String printHello(ModelMap model) {
 	  
-//		Patrimonio p = new Patrimonio();
-//		p.setNome("teste");
-//		
-//		System.out.println(p);
-//		p = entityManager.merge(p);
-//		
-//		entityManager.flush();
-//		
-//		System.out.println(p.getId());
-		
 		ExcelXLSX excelXLSX = new ExcelXLSX();
 		excelXLSX.lerPlanilha();
 		
-		System.out.println(excelXLSX.getListaEditada());
+		for (Patrimonio p : excelXLSX.getLista()) {
+			entityManager.merge(p);
+		}
+		
+		entityManager.flush();
+		
 		return "hello";
 	}
 

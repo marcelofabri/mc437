@@ -1,5 +1,6 @@
 package br.unicamp.mc437;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,6 +17,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import br.unicamp.mc437.model.Patrimonio;
 import br.unicamp.mc437.model.SituacaoBem;
+import br.unicamp.mc437.model.TipoBem;
 
 public class ExcelXLSX
 {
@@ -23,7 +25,7 @@ public class ExcelXLSX
 	private ArrayList<String> listaEditada = null;
 
     public void lerPlanilha() {
-    	setLista(getListaBens(lePlanilha("/Users/marcelofabri/Unicamp/mc437/mc437/src/main/webapp/planilha.xlsx")));
+    	lista = extractPatrimoniosFromCells(lePlanilha("/Users/marcelofabri/Unicamp/mc437/mc437/src/main/webapp/planilha.xlsx", 0), 0);
         setListaEditada(new ArrayList<String>());
         for (int i=0; i<getLista().size(); i++)
         {
@@ -33,34 +35,29 @@ public class ExcelXLSX
         }
     }
     
-    private Vector<Vector<XSSFCell>> lePlanilha(String nomeArq) {
+    private Vector<Vector<XSSFCell>> lePlanilha(String nomeArq, int sheet) {
         Vector<Vector<XSSFCell>> vetor = new Vector<Vector<XSSFCell>>();
         try  {
         	InputStream is = ExcelXLSX.class.getClassLoader().
         			getResourceAsStream(nomeArq);
         	
-//            FileInputStream arquivo = new FileInputStream(is);
-            XSSFWorkbook planilha = new XSSFWorkbook(is);
+            FileInputStream arquivo = new FileInputStream(new File(nomeArq));
+            XSSFWorkbook planilha = new XSSFWorkbook(arquivo);
             // Read data at sheet 0
-            XSSFSheet folha = planilha.getSheetAt(0);
+            XSSFSheet folha = planilha.getSheetAt(sheet);
 	        Iterator<Row> linhas = folha.rowIterator();   
             // Looping every row at sheet 0
 	        
-	        int i = 0;
             while (linhas.hasNext()) {
                 XSSFRow linhaPlan = (XSSFRow)linhas.next();
                 Iterator<Cell> celulas = linhaPlan.cellIterator();
 	            Vector<XSSFCell> linhaAtual = new Vector<XSSFCell>();   
                 // Looping every cell in each row at sheet 0
-	            int idx = 0;
-                while (celulas.hasNext() && idx < 14)  {
+                while (celulas.hasNext())  {
                     XSSFCell celulaPlan = (XSSFCell) celulas.next();
                     linhaAtual.addElement(celulaPlan);
-                    idx++;
                 }
                 vetor.addElement(linhaAtual);
-                System.out.println("Lendo linha " + i);
-                i++;
             }
         }
         catch (IOException ex)  {
@@ -69,16 +66,28 @@ public class ExcelXLSX
         return vetor;
     }
 
-	private ArrayList<Patrimonio> getListaBens(Vector<Vector<XSSFCell>> vectorData) {
+	private ArrayList<Patrimonio> extractPatrimoniosFromCells(Vector<Vector<XSSFCell>> vectorData, int sheet) {
 		ArrayList<Patrimonio> lista = new ArrayList<Patrimonio>();
         for (int i=1; i<vectorData.size(); i++) {
             Vector<XSSFCell> linha = vectorData.get(i);
             Patrimonio bem = new Patrimonio();
             bem.setOrgao(linha.get(0).getStringCellValue());
-            bem.setChapinha(linha.get(1).getStringCellValue());
+            
+            String chapinha = linha.get(1).getStringCellValue();
+            System.out.println(chapinha);
+            if (chapinha == null || chapinha.trim().length() < 1) {
+            	System.out.println("BREAK");
+            	break;
+            }
+			bem.setChapinha(chapinha);
+			
             bem.setDescricao(linha.get(2).getStringCellValue());
             bem.setMarca(linha.get(3).getStringCellValue());
+            
+            linha.get(4).setCellType(Cell.CELL_TYPE_STRING); // para poder pegar como string
             bem.setModelo(linha.get(4).getStringCellValue());
+            
+            linha.get(5).setCellType(Cell.CELL_TYPE_STRING); // para poder pegar como string
             bem.setNumeroSerie(linha.get(5).getStringCellValue());
 //            if (linha.get(6).getStringCellValue().length() > 0)
 //            {
@@ -102,15 +111,23 @@ public class ExcelXLSX
             bem.setValorCorrigido(linha.get(8).getNumericCellValue());
             
             bem.setProcesso(linha.get(9).getStringCellValue());
+
+            linha.get(10).setCellType(Cell.CELL_TYPE_STRING); // para poder pegar como string
             bem.setDocumentoFiscal(linha.get(10).getStringCellValue());
             
             bem.setImovel(linha.get(11).getStringCellValue());
             
-            bem.setAndar(linha.get(12).getStringCellValue().charAt(0));
+            linha.get(12).setCellType(Cell.CELL_TYPE_STRING); // para poder pegar como string
+            String andar = linha.get(12).getStringCellValue();
+            if (andar != null && andar.length() > 0) {
+            	bem.setAndar(andar.charAt(0));
+            }
             bem.setComplemento(linha.get(13).toString());
             
             
             bem.setSituacao(SituacaoBem.parseString(linha.get(14).getStringCellValue()));
+            
+            bem.setTipo(sheet == 0 ? TipoBem.PROPRIO : TipoBem.TERCEIROS);
             lista.add(bem);
         }
         return lista;

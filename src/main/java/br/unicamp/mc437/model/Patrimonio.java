@@ -16,16 +16,13 @@ import javax.persistence.Table;
 @Table(name="patrimonio")
 public class Patrimonio {
 	
-	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
-	@Column(name="nome", length=200)
-	private String nome;
 	
 	@Column(name="orgao", length=200)
 	private String orgao;
 	
+	@Id
 	@Column(name="chapinha", length=200)
 	private String chapinha;
 	
@@ -59,7 +56,7 @@ public class Patrimonio {
 	@Column(name="imovel", length=50)
 	private String imovel;
 
-	@Column(name="andar")
+	@Column(name="andar", length=1)
 	private Character andar;
 	
 	@Column(name="complemento", length=50)
@@ -199,14 +196,6 @@ public class Patrimonio {
 
 	public void setTipo(TipoBem tipo) {
 		this.tipo = tipo;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
 	}
 
 	public Integer getId() {
