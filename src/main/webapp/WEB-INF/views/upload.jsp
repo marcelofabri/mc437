@@ -69,8 +69,11 @@
 	
 	<body id="dt_example">
 		
-		<div id="header">
-			<a href="home.html" style="margin-left: 5%">Home</a>
+	<div id="header">
+			<a href="home2.html" style="margin-left: 5%">Home</a>
+			<a href="busca.jsp" style="margin-left: 5%">Busca</a>
+			<a href="upload.jsp" style="margin-left: 5%">Enviar arquivo</a>
+			<a href="home.html" style="margin-left: 5%">Logout</a>
 		</div>
 		
 		<div id="container">

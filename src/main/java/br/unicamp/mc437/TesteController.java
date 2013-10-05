@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import br.unicamp.mc437.model.Patrimonio;
 
@@ -21,7 +21,7 @@ public class TesteController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	@Transactional
-	public @ResponseBody String printHello(ModelMap model) {
+	public ModelAndView printHello(ModelMap model) {
 	  
 		ExcelXLSX excelXLSX = new ExcelXLSX();
 		excelXLSX.lerPlanilha();
@@ -32,7 +32,11 @@ public class TesteController {
 		
 		entityManager.flush();
 		
-		return "hello";
+		System.out.println("TESTETEEETETETETE");
+		ModelAndView mav = new ModelAndView("busca");
+	    mav.addObject("lista", excelXLSX.getLista());
+	    
+		return mav;
 	}
 
 }

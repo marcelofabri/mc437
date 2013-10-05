@@ -3,7 +3,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="br.unicamp.mc437.Database" %>
+<%@ page import="br.unicamp.mc437.model.Patrimonio" %>
+<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
 
 <html>
 	<head>
@@ -70,21 +71,55 @@
 	<body id="dt_example">
 		
 		<div id="header">
-			<a href="home.html" style="margin-left: 5%">Home</a>
+			<a href="home2.html" style="margin-left: 5%">Home</a>
+			<a href="busca.jsp" style="margin-left: 5%">Busca</a>
+			<a href="upload.jsp" style="margin-left: 5%">Enviar arquivo</a>
+			<a href="home.html" style="margin-left: 5%">Logout</a>		
 		</div>
 		
 		<div id="container">
 			<div class="full_width big">
 				Sistema de Controle de Patrimônio - Instituto de Computação
 			</div>
-			
 			<div>
-				<h1>Atualização de planilha</h1>
+				<h1>Busca</h1>
 			</div>
-			<form method="post" action="upload">
-				<input type="file" name="filePath" accept="application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"></input>
-				<input type="submit" value="Enviar"></input>
-			</form>
+			<div id="demo">
+				<table cellpadding="0" cellspacing="0" border="0"
+				class="display" id="example" width="100%">
+					<thead>
+						<tr>
+							<th># Chapinha</th>
+							<th>Marca</th>
+							<th>Modelo</th>
+							<th>Descrição</th>
+							<th>Complemento</th>
+						</tr>
+					</thead>
+					<tbody>
+
+						<c:forEach var="entry" items="${lista}">
+							<tr>
+								<td>${entry.chapinha}</td>
+								<td>${entry.marca}</td>
+								<td>${entry.modelo}</td>
+								<td>${entry.descricao}</td>
+								<td>${entry.complemento}</td>
+							</tr>
+						</c:forEach>
+
+					</tbody>
+					<tfoot>
+						<tr>
+							<th># Chapinha</th>
+							<th>Marca</th>
+							<th>Modelo</th>
+							<th>Descrição</th>
+							<th>Complemento</th>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
 		</div>
 	</body>
 </html>
