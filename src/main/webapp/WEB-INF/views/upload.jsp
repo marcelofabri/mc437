@@ -3,6 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
 
 <html>
 	<head>
@@ -69,10 +70,10 @@
 	<body id="dt_example">
 		
 	<div id="header">
-			<a href="home2.html" style="margin-left: 5%">Home</a>
-			<a href="busca.jsp" style="margin-left: 5%">Busca</a>
-			<a href="upload.jsp" style="margin-left: 5%">Enviar arquivo</a>
-			<a href="home.html" style="margin-left: 5%">Logout</a>
+			<a href="home2" style="margin-left: 5%">Home</a>
+			<a href="busca" style="margin-left: 5%">Busca</a>
+			<a href="upload" style="margin-left: 5%">Enviar arquivo</a>
+			<a href="home" style="margin-left: 5%">Logout</a>
 		</div>
 		
 		<div id="container">
@@ -83,10 +84,22 @@
 			<div>
 				<h1>Atualiza&ccedil;&atilde;o de planilha</h1>
 			</div>
-			<form method="post" action="uploadArquivo">
-				<input type="file" name="filePath" accept="application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"></input>
+			<form method="post" action="uploadArquivo" enctype="multipart/form-data">
+				<input type="file" name="file" accept="application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"></input>
 				<input type="submit" value="Enviar"></input>
 			</form>
+
+			<c:if test="${updated != null}">
+				<c:choose>
+					<c:when test="${updated.booleanValue()}">
+		        		<h2>Planilha atualizada com sucesso!</h2>
+		   			 </c:when>
+					<c:otherwise>
+		        		<h2>Erro ao atualizar a planilha.</h2>
+		    		</c:otherwise>
+				</c:choose>
+			</c:if>
+
 		</div>
 	</body>
 </html>
