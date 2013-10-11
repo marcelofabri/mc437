@@ -48,7 +48,7 @@
 		     */
 		        var nome = $('#username').val();
 		        var senha = $('#password').val();
-		        if (nome == "geronimo" && senha == "mc437"){
+		        if (nome == "admin" && senha == "mc437"){
 		        	window.location.replace("home2");
 		        } else {
 		        	window.location.replace("erro");
