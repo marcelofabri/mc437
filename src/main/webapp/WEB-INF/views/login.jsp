@@ -36,36 +36,14 @@
 		
 		<script type="text/javascript" language="javascript" src="media/js/jquery-1.10.2.js"></script>
 		<script type="text/javascript" language="javascript" src="media/js/jquery.dataTables.js"></script>
-<!-- 		<script>
-		$(function($){
-			 
-		    // No id #enviar assim que clicar executa a função
-		    $('#form').submit(function(event){
-		 
-		    	event.preventDefault();
-		    /* veja que eu criei variáveis para guardar os item
-		     * e só precisei usar a função val() para
-		     * retornar o valor dos campo para a várivel
-		     */
-		        var nome = $('#username').val();
-		        var senha = $('#password').val();
-		        if (nome == "admin" && senha == "mc437"){
-		        	window.location.replace("home2");
-		        } else {
-		        	window.location.replace("erro");
-		        }
-		        return false;
-		    });
-		});
-		</script> -->
 		
 	</head>
 	
 	<body id="dt_example">
 		
 		<div id="header">
-			<a href="home" style="margin-left: 5%">Home</a>
-			<a href="login" style="margin-left: 5%">Login</a>
+			<a href="home" style="margin-left: 5%">Tela Inicial</a>
+			<a href="login" style="margin-left: 5%">Entrar</a>
 		</div>
 		
 		<div id="container">
@@ -73,14 +51,14 @@
 				Sistema de Controle de Patrim&ocirc;nio - Instituto de Computa&ccedil;&atilde;o
 			</div>
 			<div>
-				<h1>Login</h1>
+				<h1>Entrar</h1>
 			</div>
 			<div id="demo">
 			<form name='f' action="j_spring_security_check" method='POST'>
 				<table style="border-width: 0;">
 					<tr>
-						<td>Login:</td>
-						<td><input type="text" name="j_username" /></td>
+						<td>Usuário:</td>
+						<td><input type="text" id="j_username" /></td>
 					</tr>
 					<tr>
 						<td>Senha:</td>
