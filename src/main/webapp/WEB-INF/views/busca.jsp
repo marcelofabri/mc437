@@ -71,10 +71,10 @@
 	<body id="dt_example">
 		
 		<div id="header">
-			<a href="home2" style="margin-left: 5%">Home</a>
+			<a href="home2" style="margin-left: 5%">Tela Inicial</a>
 			<a href="busca" style="margin-left: 5%">Lista de Bens</a>
 			<a href="upload" style="margin-left: 5%">Enviar arquivo</a>
-			<a href="home" style="margin-left: 5%">Logout</a>		
+			<a href="home" style="margin-left: 5%">Sair</a>		
 		</div>
 		
 		<div id="container">
@@ -89,7 +89,7 @@
 				class="display" id="example" width="100%">
 					<thead>
 						<tr>
-							<th># Chapinha</th>
+							<th>Número PI</th>
 							<th>Marca</th>
 							<th>Modelo</th>
 							<th>Descrição</th>
@@ -111,7 +111,7 @@
 					</tbody>
 					<tfoot>
 						<tr>
-							<th># Chapinha</th>
+							<th>Número PI</th>
 							<th>Marca</th>
 							<th>Modelo</th>
 							<th>Descrição</th>
