@@ -38,14 +38,9 @@
 		<script>
 		$(function($){
 			 
-		    // No id #enviar assim que clicar executa a função
 		    $('#form').submit(function(event){
 		 
 		    	event.preventDefault();
-		    /* veja que eu criei variáveis para guardar os item
-		     * e só precisei usar a função val() para
-		     * retornar o valor dos campo para a várivel
-		     */
 		        var nome = $('#username').val();
 		        var senha = $('#password').val();
 		        if (nome == "admin" && senha == "mc437"){
@@ -63,8 +58,8 @@
 	<body id="dt_example">
 		
 		<div id="header">
-			<a href="home" style="margin-left: 5%">Home</a>
-			<a href="login" style="margin-left: 5%">Login</a>
+			<a href="home" style="margin-left: 5%">Tela Inicial</a>
+			<a href="login" style="margin-left: 5%">Entrar</a>
 		</div>
 		
 		<div id="container">
@@ -72,13 +67,13 @@
 				Sistema de Controle de Patrim&ocirc;nio - Instituto de Computa&ccedil;&atilde;o
 			</div>
 			<div>
-				<h1>Login</h1>
+				<h1>Entrar</h1>
 			</div>
 			<div id="demo">
 			<form id="form">
 				<table style="border-width: 0;">
 					<tr>
-						<td>Login:</td>
+						<td>Usuário:</td>
 						<td><input type="text" id="username" /></td>
 					</tr>
 					<tr>
