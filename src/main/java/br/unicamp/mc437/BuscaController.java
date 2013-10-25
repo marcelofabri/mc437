@@ -82,7 +82,6 @@ public class BuscaController {
 	@Transactional
 	public ModelAndView processUpload(@RequestParam MultipartFile file, WebRequest webRequest, Model model) {
 
-		System.out.println("entrou!!!");
         ModelMap modelMap = new ModelMap(); 
         boolean updated = false;
         try {

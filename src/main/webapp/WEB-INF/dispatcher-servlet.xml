@@ -48,6 +48,15 @@
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 
 	<mvc:resources location="media" mapping="/media/**" />
+	
+	<mvc:interceptors>
+	    <bean id="webContentInterceptor" class="org.springframework.web.servlet.mvc.WebContentInterceptor">
+	            <property name="cacheSeconds" value="0"/>
+	            <property name="useExpiresHeader" value="false"/>
+	            <property name="useCacheControlHeader" value="true"/>
+	            <property name="useCacheControlNoStore" value="true"/>
+	    </bean>     
+	</mvc:interceptors>
 
 
 </beans>
