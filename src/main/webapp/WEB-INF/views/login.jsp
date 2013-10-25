@@ -58,7 +58,7 @@
 				<table style="border-width: 0;">
 					<tr>
 						<td>Usuário:</td>
-						<td><input type="text" id="j_username" /></td>
+						<td><input type="text" name="j_username" /></td>
 					</tr>
 					<tr>
 						<td>Senha:</td>
