@@ -94,6 +94,7 @@
 							<th>Modelo</th>
 							<th>Descrição</th>
 							<th>Complemento</th>
+							<th>N&uacute;mero do processo</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -105,6 +106,7 @@
 								<td>${entry.modelo}</td>
 								<td>${entry.descricao}</td>
 								<td>${entry.complemento}</td>
+								<td>${entry.processo}</td>
 							</tr>
 						</c:forEach>
 
