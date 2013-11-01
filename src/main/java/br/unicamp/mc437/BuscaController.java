@@ -70,6 +70,14 @@ public class BuscaController {
 		return mav;
 	}
 	
+	@RequestMapping(value = "/contato", method = RequestMethod.GET)
+	@Transactional
+	public ModelAndView contato(ModelMap model) {
+		ModelAndView mav = new ModelAndView("contato.html");
+	    
+		return mav;
+	}
+	
 	@RequestMapping(value = "/upload", method = RequestMethod.GET)
 	@Transactional
 	public ModelAndView upload(ModelMap model) {

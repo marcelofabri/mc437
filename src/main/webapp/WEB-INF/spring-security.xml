@@ -10,6 +10,7 @@
     	<intercept-url pattern="/login" access="permitAll" />
         <intercept-url pattern="/home" access="permitAll" />
         <intercept-url pattern="/erro" access="permitAll" />
+        <intercept-url pattern="/contato" access="permitAll" />
         <intercept-url pattern="/media/**" access="permitAll" />
         <intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
         <form-login login-page="/login" default-target-url="/home2" authentication-failure-url="/erro" />
