@@ -113,7 +113,7 @@
 							<td>${entry.marca}</td>
 							<td>${entry.modelo}</td>
 							<td>${entry.descricao}</td>
-							<td>${entry.complemento}</td>
+							<td>${entry.localizacao.complemento}</td>
 						</tr>
 					</c:forEach>
 

@@ -13,6 +13,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import br.unicamp.mc437.model.LocalizacaoBem;
 import br.unicamp.mc437.model.Patrimonio;
 import br.unicamp.mc437.model.SituacaoBem;
 import br.unicamp.mc437.model.TipoBem;
@@ -85,15 +86,18 @@ public class ExcelXLSX
             linha.get(10).setCellType(Cell.CELL_TYPE_STRING); // para poder pegar como string
             bem.setDocumentoFiscal(linha.get(10).getStringCellValue());
             
-            bem.setImovel(linha.get(11).getStringCellValue());
+            LocalizacaoBem localizacao = new LocalizacaoBem();
+            
+            localizacao.setImovel(linha.get(11).getStringCellValue());
             
             linha.get(12).setCellType(Cell.CELL_TYPE_STRING); // para poder pegar como string
             String andar = linha.get(12).getStringCellValue();
             if (andar != null && andar.length() > 0) {
-            	bem.setAndar(andar.charAt(0));
+            	localizacao.setAndar(andar.charAt(0));
             }
-            bem.setComplemento(linha.get(13).toString());
+            localizacao.setComplemento(linha.get(13).toString());
             
+            bem.setLocalizacao(localizacao);
             
             bem.setSituacao(SituacaoBem.parseString(linha.get(14).getStringCellValue()));
             
