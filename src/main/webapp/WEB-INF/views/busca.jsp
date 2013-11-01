@@ -35,6 +35,11 @@
 #header a {
 	color: #FFFFFF
 }
+
+tr.clickable:hover {
+   cursor: pointer;
+}
+
 </style>
 
 <script type="text/javascript" language="javascript"
@@ -108,7 +113,7 @@
 				<tbody>
 
 					<c:forEach var="entry" items="${lista}">
-						<tr>
+						<tr class="clickable">
 							<td>${entry.chapinha}</td>
 							<td>${entry.processo}</td>
 							<td>${entry.marca}</td>

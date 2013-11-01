@@ -1,4 +1,8 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+	
 <html>
         <head>
                 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -31,11 +35,21 @@
         <body id="dt_example">
                 
         <div id="header">
-                        <a href="home2" style="margin-left: 5%">Tela Inicial</a>
-                        <a href="busca" style="margin-left: 5%">Lista de Bens</a>
-                        <a href="upload" style="margin-left: 5%">Enviar arquivo</a>
-                        <a href="contato" style="margin-left: 5%">Contato</a>
-                        <a href="home" style="margin-left: 5%">Sair</a>
+                        
+                        <sec:authorize access="isAuthenticated()">
+                        	<a href="home2" style="margin-left: 5%">Tela Inicial</a>
+                        	<a href="busca" style="margin-left: 5%">Lista de Bens</a>
+                        	<a href="upload" style="margin-left: 5%">Enviar arquivo</a>
+                        	<a href="contato" style="margin-left: 5%">Contato</a>
+                        	<a href="j_spring_security_logout" style="margin-left: 5%">Sair</a>
+                        </sec:authorize>
+                        
+                        <sec:authorize access="isAnonymous()">
+                        	<a href="home" style="margin-left: 5%">Tela Inicial</a>
+                        	<a href="contato" style="margin-left: 5%">Contato</a>
+                        	<a href="login" style="margin-left: 5%">Entrar</a>
+                        </sec:authorize>
+                        
                 </div>
                 
                 <div id="container">

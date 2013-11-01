@@ -73,7 +73,7 @@ public class BuscaController {
 	@RequestMapping(value = "/contato", method = RequestMethod.GET)
 	@Transactional
 	public ModelAndView contato(ModelMap model) {
-		ModelAndView mav = new ModelAndView("contato.html");
+		ModelAndView mav = new ModelAndView("contato.jsp");
 	    
 		return mav;
 	}
