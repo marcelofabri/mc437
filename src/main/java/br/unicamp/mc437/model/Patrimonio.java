@@ -2,12 +2,17 @@ package br.unicamp.mc437.model;
 
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -48,14 +53,8 @@ public class Patrimonio {
 	@Column(name="documentoFiscal", length=50)
 	private String documentoFiscal;
 	
-	@Column(name="imovel", length=50)
-	private String imovel;
-
-	@Column(name="andar", length=1)
-	private Character andar;
-	
-	@Column(name="complemento", length=50)
-	private String complemento;
+	@Embedded
+	private LocalizacaoBem localizacao;
 	
 	@Column(name="situacao", length=50)
 	@Enumerated(EnumType.STRING)
@@ -64,6 +63,9 @@ public class Patrimonio {
 	@Column(name="tipo", length=50)
 	@Enumerated(EnumType.STRING)
 	private TipoBem tipo;
+	
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	private List<AlteracaoPatrimonio> alteracoes;
 
 	public String getOrgao() {
 		return orgao;
@@ -153,30 +155,6 @@ public class Patrimonio {
 		this.documentoFiscal = documentoFiscal;
 	}
 	
-	public String getImovel() {
-		return imovel;
-	}
-
-	public void setImovel(String imovel) {
-		this.imovel = imovel;
-	}
-
-	public Character getAndar() {
-		return andar;
-	}
-
-	public void setAndar(Character andar) {
-		this.andar = andar;
-	}
-
-	public String getComplemento() {
-		return complemento;
-	}
-
-	public void setComplemento(String complemento) {
-		this.complemento = complemento;
-	}
-
 	public SituacaoBem getSituacao() {
 		return situacao;
 	}
@@ -191,5 +169,13 @@ public class Patrimonio {
 
 	public void setTipo(TipoBem tipo) {
 		this.tipo = tipo;
+	}
+
+	public LocalizacaoBem getLocalizacao() {
+		return localizacao;
+	}
+
+	public void setLocalizacao(LocalizacaoBem localizacao) {
+		this.localizacao = localizacao;
 	}
 }

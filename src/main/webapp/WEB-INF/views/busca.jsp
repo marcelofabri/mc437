@@ -79,10 +79,11 @@
 <body id="dt_example">
 
 	<div id="header">
-		<a href="home2" style="margin-left: 5%">Tela Inicial</a> <a
-			href="busca" style="margin-left: 5%">Lista de Bens</a> <a
-			href="upload" style="margin-left: 5%">Enviar arquivo</a> <a
-			href="j_spring_security_logout" style="margin-left: 5%">Sair</a>
+		<a href="home2" style="margin-left: 5%">Tela Inicial</a>
+		<a href="busca" style="margin-left: 5%">Lista de Bens</a> 
+		<a href="upload" style="margin-left: 5%">Enviar arquivo</a>
+		<a href="contato" style="margin-left: 5%">Contato</a> 
+		<a href="j_spring_security_logout" style="margin-left: 5%">Sair</a>
 	</div>
 
 	<div id="container">
@@ -113,7 +114,7 @@
 							<td>${entry.marca}</td>
 							<td>${entry.modelo}</td>
 							<td>${entry.descricao}</td>
-							<td>${entry.complemento}</td>
+							<td>${entry.localizacao.complemento}</td>
 						</tr>
 					</c:forEach>
 
