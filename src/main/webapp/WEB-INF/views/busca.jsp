@@ -36,8 +36,9 @@
 	color: #FFFFFF
 }
 
-tr.clickable:hover {
+table tbody tr.clickable:hover td {
    cursor: pointer;
+   background-color:#a9d0f5 !important;
 }
 
 </style>
@@ -47,37 +48,40 @@ tr.clickable:hover {
 <script type="text/javascript" language="javascript" src="media/js/jquery.dataTables.js"></script>
 <script type="text/javascript" language="javascript" src="media/js/jquery.dataTables.columnFilter.js"></script>
 <script type="text/javascript" charset="utf-8">
-	$(document)
-			.ready(
-					function() {
-						$('#example')
-								.dataTable(
-										{
-											"sPaginationType" : "full_numbers",
-											"iDisplayLength" : 25,
-											"aLengthMenu" : [
-													[ 10, 25, 50, 100, 250 ],
-													[ 10, 25, 50, 100, 250 ] ],
-											"oLanguage" : {
-												"oPaginate" : {
-													"sFirst" : "Primeira",
-													"sLast" : "Última",
-													"sNext" : "Próxima",
-													"sPrevious" : "Anterior"
-												},
-												"sEmptyTable" : "Não há dados disponíveis",
-												"sInfo" : "Mostrando _START_ a _END_ de _TOTAL_ itens",
-												"sInfoEmpty" : "Mostrando 0 a 0 de 0 itens",
-												"sInfoFiltered" : "(filtrados de _MAX_ itens)",
-												"sInfoThousands" : ".",
-												"sLengthMenu" : "Mostrar _MENU_ itens",
-												"sLoadingRecords" : "Carregando...",
-												"sProcessing" : "Processando...",
-												"sSearch" : "Busca:",
-												"sZeroRecords" : "Nenhum resultado encontrado"
-											}
-										}).columnFilter();
-					});
+	$(document).ready(function() {
+		$('#example').dataTable(
+								{
+									"sPaginationType" : "full_numbers",
+									"iDisplayLength" : 25,
+									"aLengthMenu" : [
+											[ 10, 25, 50, 100, 250 ],
+											[ 10, 25, 50, 100, 250 ] ],
+									"oLanguage" : {
+										"oPaginate" : {
+											"sFirst" : "Primeira",
+											"sLast" : "Última",
+											"sNext" : "Próxima",
+											"sPrevious" : "Anterior"
+										},
+										"sEmptyTable" : "Não há dados disponíveis",
+										"sInfo" : "Mostrando _START_ a _END_ de _TOTAL_ itens",
+										"sInfoEmpty" : "Mostrando 0 a 0 de 0 itens",
+										"sInfoFiltered" : "(filtrados de _MAX_ itens)",
+										"sInfoThousands" : ".",
+										"sLengthMenu" : "Mostrar _MENU_ itens",
+										"sLoadingRecords" : "Carregando...",
+										"sProcessing" : "Processando...",
+										"sSearch" : "Busca:",
+										"sZeroRecords" : "Nenhum resultado encontrado"
+									}
+		}).columnFilter();
+		
+		$("table tbody tr.clickable").click(function() {
+			var chapinha = $(this).find(".chapinha").html();
+			console.info(chapinha);
+			location.href = 'patrimonio/' + encodeURIComponent(chapinha); 
+		});
+	});
 </script>
 </head>
 
@@ -114,7 +118,7 @@ tr.clickable:hover {
 
 					<c:forEach var="entry" items="${lista}">
 						<tr class="clickable">
-							<td>${entry.chapinha}</td>
+							<td class="chapinha">${entry.chapinha}</td>
 							<td>${entry.processo}</td>
 							<td>${entry.marca}</td>
 							<td>${entry.modelo}</td>
