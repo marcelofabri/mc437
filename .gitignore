@@ -10,3 +10,8 @@
 .project
 .settings/
 target/
+build/
+mc437.lck
+mc437.log
+mc437.properties
+mc437.script
