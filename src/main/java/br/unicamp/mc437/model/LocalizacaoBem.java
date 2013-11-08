@@ -15,6 +15,16 @@ public class LocalizacaoBem {
 	@Column(name="complemento", length=50)
 	private String complemento;
 
+	public LocalizacaoBem(LocalizacaoBem loc) {
+		this.setAndar(loc.getAndar());
+		this.setComplemento(loc.getComplemento());
+		this.setImovel(loc.getImovel());
+	}
+	
+	public LocalizacaoBem() {
+		super();
+	}
+	
 	public String getImovel() {
 		return imovel;
 	}

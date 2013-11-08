@@ -11,6 +11,15 @@
         <!-- MENU -->
 		<jsp:include page="menu.jsp"></jsp:include>
 		<!-- MENU -->
+		
+		<div>
+		
+			<form>
+				<input type="radio" name="radio1" checked>
+				<input type="radio" name="radio1">
+			</form>
+		
+		</div>
 
 </body>
 </html>
