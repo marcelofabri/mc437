@@ -3,6 +3,7 @@ package br.unicamp.mc437;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PushbackInputStream;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,7 +20,10 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.unicamp.mc437.model.AlteracaoPatrimonio;
+import br.unicamp.mc437.model.LocalizacaoBem;
 import br.unicamp.mc437.model.Patrimonio;
+import br.unicamp.mc437.model.StatusAlteracaoPatrimonio;
 
 @Controller
 @RequestMapping("")
@@ -89,6 +93,47 @@ public class BuscaController {
 	@Transactional
 	public ModelAndView upload(ModelMap model) {
 		ModelAndView mav = new ModelAndView("upload.jsp");
+	    
+		return mav;
+	}
+	
+	@RequestMapping(value = "/criaAlteracoes", method = RequestMethod.GET)
+	@Transactional
+	public String criaAlteracoes(ModelMap model) {
+		Query q = entityManager.createQuery("SELECT p FROM Patrimonio p WHERE p.chapinha = :chapinha");
+		q.setParameter("chapinha", "01/0000027628");
+		Patrimonio p = (Patrimonio) q.getSingleResult();
+		
+		for (int i = 0; i < 10; i++) {
+			AlteracaoPatrimonio ap = new AlteracaoPatrimonio();
+			ap.setPatrimonio(p);
+			ap.setUsuarioCriacao("marcelo");
+			ap.setLocalizacaoAntiga(p.getLocalizacao());
+			LocalizacaoBem loc = new LocalizacaoBem(p.getLocalizacao());
+			loc.setImovel("TESTE");
+			ap.setLocalizacaoNova(loc);
+			
+			entityManager.merge(ap);
+		}
+		
+		entityManager.flush();
+		return "home.jsp";
+	}
+	
+	@RequestMapping(value = "/listaAlteracoes", method = RequestMethod.GET)
+	@Transactional
+	public ModelAndView listaAlteracoes(ModelMap model) {
+		ModelAndView mav = new ModelAndView("lista_alteracoes.jsp");
+		
+		Query query = entityManager.createQuery("SELECT ap FROM AlteracaoPatrimonio ap JOIN FETCH ap.patrimonio WHERE ap.status = :status");
+		query.setParameter("status", StatusAlteracaoPatrimonio.PENDENTE);
+		
+		@SuppressWarnings("unchecked")
+		List<AlteracaoPatrimonio> results = query.getResultList();
+		for (AlteracaoPatrimonio ap : results) {
+			System.out.println(ap.getUsuarioCriacao());
+		}
+	    mav.addObject("lista", query.getResultList());
 	    
 		return mav;
 	}

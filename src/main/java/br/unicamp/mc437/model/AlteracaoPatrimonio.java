@@ -28,10 +28,10 @@ public class AlteracaoPatrimonio {
 	
 	@Column(name="status", length=50)
 	@Enumerated(EnumType.STRING)
-	private StatusAlteracaoPatrimonio status;
+	private StatusAlteracaoPatrimonio status = StatusAlteracaoPatrimonio.PENDENTE;
 	
 	@Column(name="dataCriacao")
-	private Date dataCriacao;
+	private Date dataCriacao = new Date();
 	
 	@Column(name="dataRevisao")
 	private Date dataRevisao;
