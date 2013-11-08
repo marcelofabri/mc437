@@ -46,10 +46,10 @@ public class BuscaController {
 		return "home.jsp";
 	}
 	
-	@RequestMapping(value = {"/aprovacao", ""}, method = RequestMethod.GET)
+	@RequestMapping(value = {"/requisicao", ""}, method = RequestMethod.GET)
 	@Transactional
 	public ModelAndView aprovacao(ModelMap model) {
-		ModelAndView mav = new ModelAndView("aprovacao.jsp");
+		ModelAndView mav = new ModelAndView("requisicao.jsp");
 		return mav;
 	}
 	
