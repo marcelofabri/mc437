@@ -135,6 +135,14 @@ public class BuscaController {
 		}
 	    mav.addObject("lista", query.getResultList());
 	    
+	    return mav;
+	}
+	
+	@RequestMapping(value = "/conflito", method = RequestMethod.GET)
+	@Transactional
+	public ModelAndView conflito(ModelMap model) {
+		ModelAndView mav = new ModelAndView("conflito.jsp");
+	    
 		return mav;
 	}
 	
