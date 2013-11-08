@@ -41,11 +41,9 @@
 	
 	<body id="dt_example">
 		
-		<div id="header">
-			<a href="home" style="margin-left: 5%">Tela Inicial</a>
-			<a href="contato" style="margin-left: 5%">Contato</a>
-			<a href="login" style="margin-left: 5%">Entrar</a>
-		</div>
+        <!-- MENU -->
+		<jsp:include page="menu.jsp"></jsp:include>
+		<!-- MENU -->
 		
 		<div id="container">
 			<div class="full_width big">

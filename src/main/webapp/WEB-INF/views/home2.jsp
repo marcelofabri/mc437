@@ -1,9 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <html>
 	<head>
@@ -15,7 +13,7 @@
 			@import "media/css/demo_page.css";
 			@import "media/css/jquery.dataTables.css";
 		</style>
-		
+
 		<style>
 			#header {
 				width: 100%;
@@ -31,11 +29,12 @@
 				color: #FFFFFF
 			}
 		</style>
-		
+
 		<script type="text/javascript" language="javascript" src="media/js/jquery-1.10.2.js"></script>
-		
+		<script type="text/javascript" language="javascript" src="media/js/jquery.dataTables.js"></script>
+
 	</head>
-	
+
 	<body id="dt_example">
 		
         <!-- MENU -->
@@ -43,29 +42,28 @@
 		<!-- MENU -->
 		
 		<div id="container">
+			<style>
+				#title {
+					text-align: center;
+					color: #000000;
+					padding: 12px;
+					text-shadow: none;
+					font-size: 40px;
+				}
+			</style>
 			<div class="full_width big">
-				Sistema de Controle de Patrim&ocirc;nio - Instituto de Computa&ccedil;&atilde;o
+				<center>
+					<font size=6>  
+						Sistema de Controle de Patrim&ocirc;nio - Instituto de Computa&ccedil;&atilde;o
+					</font>
+				</center>
 			</div>
-			
-			<div>
-				<h1>Atualiza&ccedil;&atilde;o de planilha</h1>
+
+
+			<div id="demo" style="text-align: center;">
+							<img src="media/images/logo_ic.png" /> 
+				
 			</div>
-			<form method="post" action="uploadArquivo" enctype="multipart/form-data">
-				<input type="file" name="file" accept="application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"></input>
-				<input type="submit" value="Enviar"></input>
-			</form>
-
-			<c:if test="${updated != null}">
-				<c:choose>
-					<c:when test="${updated.booleanValue()}">
-		        		<h2>Planilha atualizada com sucesso!</h2>
-		   			 </c:when>
-					<c:otherwise>
-		        		<h2>Erro ao atualizar a planilha.</h2>
-		    		</c:otherwise>
-				</c:choose>
-			</c:if>
-
 		</div>
 	</body>
 </html>

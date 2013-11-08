@@ -43,13 +43,13 @@ public class BuscaController {
 	@RequestMapping(value = {"/home", ""}, method = RequestMethod.GET)
 	@Transactional
 	public String home(ModelMap model) {
-		return "home.html";
+		return "home.jsp";
 	}
 	
 	@RequestMapping(value = "/home2", method = RequestMethod.GET)
 	@Transactional
 	public ModelAndView home2(ModelMap model) {
-		ModelAndView mav = new ModelAndView("home2.html");
+		ModelAndView mav = new ModelAndView("home2.jsp");
 	    
 		return mav;
 	}
@@ -65,7 +65,7 @@ public class BuscaController {
 	@RequestMapping(value = "/erro", method = RequestMethod.GET)
 	@Transactional
 	public ModelAndView erro(ModelMap model) {
-		ModelAndView mav = new ModelAndView("erro.html");
+		ModelAndView mav = new ModelAndView("erro.jsp");
 	    
 		return mav;
 	}
