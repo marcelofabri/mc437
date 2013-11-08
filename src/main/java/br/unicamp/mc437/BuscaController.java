@@ -44,6 +44,16 @@ public class BuscaController {
 		return mav;
 	}
 	
+	@RequestMapping(value = "/conflito", method = RequestMethod.GET)
+	@Transactional
+	public ModelAndView conflito(ModelMap model) {
+		ModelAndView mav = new ModelAndView("conflito.jsp");
+		Conflitos c = new Conflitos();
+		mav.addObject("lista",c.lista);
+	    
+		return mav;
+	}
+	
 	@RequestMapping(value = {"/home", ""}, method = RequestMethod.GET)
 	@Transactional
 	public String home(ModelMap model) {
@@ -136,14 +146,6 @@ public class BuscaController {
 	    mav.addObject("lista", query.getResultList());
 	    
 	    return mav;
-	}
-	
-	@RequestMapping(value = "/conflito", method = RequestMethod.GET)
-	@Transactional
-	public ModelAndView conflito(ModelMap model) {
-		ModelAndView mav = new ModelAndView("conflito.jsp");
-	    
-		return mav;
 	}
 	
 	@RequestMapping(value = "/uploadArquivo", method = RequestMethod.POST)
