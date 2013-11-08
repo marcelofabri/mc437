@@ -93,6 +93,14 @@ public class BuscaController {
 		return mav;
 	}
 	
+	@RequestMapping(value = "/conflito", method = RequestMethod.GET)
+	@Transactional
+	public ModelAndView conflito(ModelMap model) {
+		ModelAndView mav = new ModelAndView("conflito.jsp");
+	    
+		return mav;
+	}
+	
 	@RequestMapping(value = "/uploadArquivo", method = RequestMethod.POST)
 	@Transactional
 	public ModelAndView processUpload(@RequestParam MultipartFile file, WebRequest webRequest, Model model) {
