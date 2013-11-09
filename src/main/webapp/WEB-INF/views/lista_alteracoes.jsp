@@ -74,7 +74,8 @@ table tbody tr.clickable:hover td {
 										"sSearch" : "Busca:",
 										"sZeroRecords" : "Nenhum resultado encontrado"
 									},
-									"aoColumns": [
+									 "aoColumns": [
+										  null,
 										  null,
 										  null,
 										  null,
@@ -84,7 +85,7 @@ table tbody tr.clickable:hover td {
 										  null,
 										  null,
 										  { "bSortable": false }
-									]
+									] 
 		}).columnFilter();
 	});
 </script>
@@ -110,7 +111,7 @@ table tbody tr.clickable:hover td {
 						<th colspan="3">Nova Localiza&ccedil;&atilde;o</th>
 						<th rowspan="2">Usu&aacute;rio</th>
 						<th rowspan="2">Data de Pedido</th>
-						<th rowspan="2">A&ccedil;&ocirc;es</th>
+						<th rowspan="2">A&ccedil;&otilde;es</th>
 					</tr>
 					<tr>
 						<th>Im&oacute;vel</th>
@@ -134,6 +135,10 @@ table tbody tr.clickable:hover td {
 							<td>${entry.localizacaoNova.complemento}</td>
 							<td>${entry.usuarioCriacao}</td>
 							<td><fmt:formatDate value="${entry.dataCriacao}" pattern="dd/MM/yyyy HH:mm" /></td>
+							<td>
+								<a href="#" title="Aprovar"><img src="media/images/icon-approve.png" width="32" height="32" /></a>
+								<a href="#" title="Reprovar"><img src="media/images/icon-disapprove.png" width="32" height="32" /></a>
+							</td>
 						</tr>
 					</c:forEach>
 
