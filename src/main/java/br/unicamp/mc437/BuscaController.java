@@ -9,6 +9,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -60,9 +62,9 @@ public class BuscaController {
 		return "home.jsp";
 	}
 	
-	@RequestMapping(value = {"/requisicao", ""}, method = RequestMethod.GET)
+	@RequestMapping(value = "/requisicao", method = RequestMethod.GET)
 	@Transactional
-	public ModelAndView aprovacao(ModelMap model) {
+	public ModelAndView requisicao(ModelMap model) {
 		ModelAndView mav = new ModelAndView("requisicao.jsp");
 		return mav;
 	}
@@ -179,5 +181,31 @@ public class BuscaController {
         modelMap.addAttribute("updated", updated);
         return new ModelAndView("upload.jsp", modelMap);
     }
+	
+	@RequestMapping(value = "/executaAlteracao", method = RequestMethod.POST)
+	@Transactional
+	public ModelAndView processUpdate( 
+			@RequestParam("j_pi") String pi, @RequestParam("j_imovel") String imovel,
+			@RequestParam("j_andar") String andar, @RequestParam("j_complemento") String complemento,
+			WebRequest webRequest, Model model)
+	{
+		AlteracaoPatrimonio ap = new AlteracaoPatrimonio();
+		LocalizacaoBem novoLocal = new LocalizacaoBem();
+		novoLocal.setAndar(andar.charAt(0));
+		novoLocal.setComplemento(complemento);
+		novoLocal.setImovel(imovel);
+		ap.setLocalizacaoNova(novoLocal);
+		Query q = entityManager.createQuery("SELECT p FROM Patrimonio p WHERE p.chapinha = :chapinha");
+		q.setParameter("chapinha", pi);
+		Patrimonio p = (Patrimonio)q.getSingleResult();
+		ap.setPatrimonio(p);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    String name = auth.getName();
+	    ap.setUsuarioCriacao(name);
+	    ap.setLocalizacaoAntiga(p.getLocalizacao());
+	    entityManager.merge(ap);
+	    entityManager.flush();
+		return new ModelAndView("requisicaoSucesso.html");
+	}
 
 }
