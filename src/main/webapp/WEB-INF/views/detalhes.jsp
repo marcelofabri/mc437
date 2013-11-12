@@ -52,7 +52,6 @@ div.element label {
 	text-align: left;
 	text-shadow: none;
 	font-size: 12px;
-	font
 }
 
 div.item {
@@ -91,49 +90,12 @@ div.item {
 <script type="text/javascript" language="javascript"
 	src="media/js/complete.js"></script>
 <script type="text/javascript" charset="utf-8">
-	$(document)
-			.ready(
-					function() {
+	$(document).ready(function() {
+		$("button.voltar").click(function() {
+			history.go(-1);
+		});
 
-						$('#example')
-								.dataTable(
-										{
-											"sPaginationType" : "full_numbers",
-											"iDisplayLength" : 25,
-											"aLengthMenu" : [
-													[ 10, 25, 50, 100, 250 ],
-													[ 10, 25, 50, 100, 250 ] ],
-											"oLanguage" : {
-												"oPaginate" : {
-													"sFirst" : "Primeira",
-													"sLast" : "Última",
-													"sNext" : "Próxima",
-													"sPrevious" : "Anterior"
-												},
-												"sEmptyTable" : "Não há dados disponíveis",
-												"sInfo" : "Mostrando _START_ a _END_ de _TOTAL_ itens",
-												"sInfoEmpty" : "Mostrando 0 a 0 de 0 itens",
-												"sInfoFiltered" : "(filtrados de _MAX_ itens)",
-												"sInfoThousands" : ".",
-												"sLengthMenu" : "Mostrar _MENU_ itens",
-												"sLoadingRecords" : "Carregando...",
-												"sProcessing" : "Processando...",
-												"sSearch" : "Busca:",
-												"sZeroRecords" : "Nenhum resultado encontrado"
-											}
-										}).columnFilter();
-
-						$("table tbody tr.clickable").click(function() {
-							var chapinha = $(this).find(".chapinha").html();
-							console.info(chapinha);
-							location.href = 'detalhes?bem=' + chapinha;
-						});
-
-						$("button.voltar").click(function() {
-							location.href = 'busca';
-						});
-
-					});
+	});
 </script>
 </head>
 
@@ -247,7 +209,7 @@ div.item {
 							<label>Imóvel:</label>
 						</div>
 						<div class="element">
-							<label>${pventry}</label>
+							<label>${pventry.localizacao.imovel}</label>
 						</div>
 					</div>
 					<div class="item">
@@ -255,7 +217,7 @@ div.item {
 							<label>Andar:</label>
 						</div>
 						<div class="element">
-							<label>${pventry}</label>
+							<label>${pventry.localizacao.andar}</label>
 						</div>
 					</div>
 					<div class="item">
@@ -263,7 +225,7 @@ div.item {
 							<label>Complemento:</label>
 						</div>
 						<div class="element">
-							<label>${pventry}</label>
+							<label>${pventry.localizacao.complemento}</label>
 						</div>
 					</div>
 					<div class="item">
@@ -283,18 +245,18 @@ div.item {
 						</div>
 					</div>
 				</div>
-				<div id="footer">
-					<table>
-						<tbody>
-							<tr>
-								<td><button class="voltar">Voltar</button></td>
-								<td><button class="salvar">Salvar</button></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
 			</div>
 		</form>
+		<div id="footer">
+			<table>
+				<tbody>
+					<tr>
+						<td><button class="voltar">Voltar</button></td>
+						<td><button class="salvar">Salvar</button></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
 </body>
 </html>
