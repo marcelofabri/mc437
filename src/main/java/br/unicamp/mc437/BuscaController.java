@@ -46,6 +46,22 @@ public class BuscaController {
 		return mav;
 	}
 	
+	@RequestMapping(value = "/detalhes", method = RequestMethod.GET)
+	@Transactional
+	public ModelAndView detalhesPatrimonios(ModelMap model, @RequestParam String bem) {
+	  
+		System.out.println("Got request param: " + bem);  
+		
+		Query query = entityManager
+				.createQuery("SELECT p FROM Patrimonio p WHERE P.chapinha LIKE :number");
+		query.setParameter("number", bem);
+		
+		ModelAndView mav = new ModelAndView("detalhes.jsp");
+	    mav.addObject("pventry", query.getResultList().get(0));
+	    
+		return mav;
+	}
+	
 	@RequestMapping(value = "/conflito", method = RequestMethod.GET)
 	@Transactional
 	public ModelAndView conflito(ModelMap model) {

@@ -78,7 +78,7 @@ table tbody tr.clickable:hover td {
 		$("table tbody tr.clickable").click(function() {
 			var chapinha = $(this).find(".chapinha").html();
 			console.info(chapinha);
-			location.href = 'patrimonio/' + encodeURIComponent(chapinha); 
+			location.href = 'detalhes?bem=' + chapinha; 
 		});
 	});
 </script>
@@ -91,7 +91,7 @@ table tbody tr.clickable:hover td {
 		<!-- MENU -->
 
 	<div id="container">
-		<div class="full_width big">Sistema de Controle de Patrim&ocirc;nio - Instituto de Computa&ccedil;&atilde;o</div>
+		<div class="full_width big">Sistema de Controle de Patrimônio - Instituto de Computação</div>
 		<div>
 			<h1>Busca</h1>
 		</div>
