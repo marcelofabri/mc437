@@ -14,7 +14,7 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/x
             <property name="hibernate.connection.username" value="sa"/>  
             <property name="hibernate.connection.password" value =""/>  
             <!--Metodo de atualizacao -->  
-            <property name="hibernate.hbm2ddl.auto" value = "create"/>  
+            <property name="hibernate.hbm2ddl.auto" value = "update"/>  
             <property name="hibernate.show_sql"  value = "true"/>  
         </properties>  
     </persistence-unit>  

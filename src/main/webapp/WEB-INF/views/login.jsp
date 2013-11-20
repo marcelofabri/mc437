@@ -14,6 +14,7 @@
 		<style type="text/css" title="currentStyle">
 			@import "media/css/demo_page.css";
 			@import "media/css/jquery.dataTables.css";
+			@import "media/css/bootstrap.css";
 		</style>
 		
 		<style>
@@ -36,6 +37,7 @@
 		
 		<script type="text/javascript" language="javascript" src="media/js/jquery-1.10.2.js"></script>
 		<script type="text/javascript" language="javascript" src="media/js/jquery.dataTables.js"></script>
+		<script type="text/javascript" language="javascript" src="media/js/bootstrap.js"></script>
 		
 	</head>
 	
@@ -53,20 +55,27 @@
 				<h1>Entrar</h1>
 			</div>
 			<div id="demo">
-			<form name='f' action="j_spring_security_check" method='POST'>
-				<table style="border-width: 0;">
-					<tr>
-						<td>Usuário:</td>
-						<td><input type="text" name="j_username" /></td>
-					</tr>
-					<tr>
-						<td>Senha:</td>
-						<td><input type="password" name="j_password" /></td>
-					</tr>	
-				</table>
-				<input type="submit" id="enviar" value="Entrar" />
-			</form>
-			
+				<form class="form-horizontal" style="max-width: 30%;" role="form" name='f' 
+					  action="j_spring_security_check" method='POST'>
+					  
+				  <div class="form-group">
+				    <label for="inputUsuario" class="col-sm-2 control-label">Usuário</label>
+				    <div class="col-sm-10">
+				      <input type="text" class="form-control" placeholder="Usuário" name="j_username" id="inputUsuario">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label for="inputSenha" class="col-sm-2 control-label">Senha</label>
+				    <div class="col-sm-10">
+				      <input type="password" class="form-control" placeholder="Senha" name="j_password" id="inputSenha">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <div class="col-sm-offset-2 col-sm-10">
+				      <input type="submit" id="enviar" value="Entrar" class="btn btn-primary css_right" />
+				    </div>
+				  </div>
+				</form>
 			</div>
 		</div>
 	</body>

@@ -14,6 +14,7 @@
 		<style type="text/css" title="currentStyle">
 			@import "media/css/demo_page.css";
 			@import "media/css/jquery.dataTables.css";
+			@import "media/css/bootstrap.css";
 		</style>
 		
 		<style>
@@ -33,6 +34,17 @@
 		</style>
 		
 		<script type="text/javascript" language="javascript" src="media/js/jquery-1.10.2.js"></script>
+		<script type="text/javascript" language="javascript" src="media/js/bootstrap.js"></script>
+		
+		<script type="text/javascript" charset="utf-8">
+			$(document).ready(function() {
+				$("#inputPlanilha").change(function() {
+				    if ($(this).val() != "") {
+				    	$("#btnSubmit").removeAttr('disabled');
+				    }
+				});
+			});
+		</script>
 		
 	</head>
 	
@@ -50,9 +62,12 @@
 			<div>
 				<h1>Atualiza&ccedil;&atilde;o de planilha</h1>
 			</div>
-			<form method="post" action="uploadArquivo" enctype="multipart/form-data">
-				<input type="file" name="file" accept="application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"></input>
-				<input type="submit" value="Enviar"></input>
+			<form method="post" action="uploadArquivo" enctype="multipart/form-data" class="form-inline" role="form">
+				<div class="form-group">
+					<input type="file" id="inputPlanilha" name="file" accept="application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"></input>
+				</div>
+				<input type="submit" id="btnSubmit" value="Enviar" class="btn btn-primary" disabled="disabled"></input>
+				
 			</form>
 
 			<c:if test="${updated != null}">

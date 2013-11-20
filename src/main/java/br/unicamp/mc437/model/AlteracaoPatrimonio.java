@@ -122,6 +122,14 @@ public class AlteracaoPatrimonio {
 		this.patrimonio = patrimonio;
 	}
 
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	@ManyToOne(fetch=FetchType.LAZY)
 	private Patrimonio patrimonio;
 	
