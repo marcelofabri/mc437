@@ -69,6 +69,15 @@
 				});
 			});
 		</script>
+		<script type="text/javascript">
+			function selectAll(check)
+			{
+				var radio, i=0;
+				while (radio=check.form.elements[i++])
+					if (radio.type=="radio" && radio.value==check.value)
+						radio.checked = true;
+			}
+		</script>
 	</head>
 	
 	<body id="dt_example">
@@ -99,31 +108,16 @@
 							<c:forEach var="entry" items="${lista}">
 									<tr>
 										<td style="vertical-align:top;">
-											<input type="radio" name="${entry.id}" style="float:left; width:20px">
-											<div style="margin-left:35px; width:500px; min-height:120px;
-											border:1px solid blue;">
-												${entry.antigo} <br>
-												PI: 10/0000006102 <br>
-												Processo: 01-P-01112/1993 <br>
-												Marca: Critex <br>
-												Modelo: 1300 <br>
-												${entry.antigo} <br>
-												PI: 10/0000006102 <br>
-												Processo: 01-P-01112/1993 <br>
-												Marca: Critex <br>
-												Modelo: 1300 <br>
+											<input type="radio" name="${entry.id}" value="0" style="float:left; width:20px">
+											<div style="margin-left:35px; width:500px; min-height:120px; border:1px solid blue;">
+												${entry.antigo}
 											</div>
 											</input>
 										</td>
 										<td style="vertical-align:top;">
-											<input type="radio" name="${entry.id}" style="float:left; width:20px">
-											<div style="margin-left:35px; width:500px; min-height:120px;
-											border:1px solid blue;">
-												${entry.novo} <br>
-												PI: 10/0000006102 <br>
-												Processo: 01-P-01112/1993 <br>
-												Marca: Critex <br>
-												Modelo: 1300 <br>
+											<input type="radio" name="${entry.id}" value="1" style="float:left; width:20px">
+											<div style="margin-left:35px; width:500px; min-height:120px; border:1px solid blue;">
+												${entry.novo}
 											</div>
 											</input>
 										</td>
@@ -137,6 +131,8 @@
 							</tr>
 						</tfoot>
 					</table>
+					<input type="radio" name="radioFoot" value="0" onclick="selectAll(this)"> Selecionar todos </input>
+					<input type="radio" name="radioFoot" value="1" onclick="selectAll(this)" style="margin-left:500px"> Selecionar todos </input>
 				</form>
 			</div>
         </div>
