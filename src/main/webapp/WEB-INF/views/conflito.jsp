@@ -40,6 +40,9 @@
 			$(document).ready(function() {
 				$('#example').dataTable(
 				{
+					"bDeferRender" : true,
+					"bFilter": false,
+					"bSort" : false,
 					"sPaginationType" : "full_numbers",
 					"iDisplayLength" : 25,
 					"aLengthMenu" : [
@@ -95,8 +98,35 @@
 						<tbody>
 							<c:forEach var="entry" items="${lista}">
 									<tr>
-										<td><input type="radio" name="${entry.id}"/>${entry.antigo}</td>
-										<td><input type="radio" name="${entry.id}"/>${entry.novo}</td>
+										<td style="vertical-align:top;">
+											<input type="radio" name="${entry.id}" style="float:left; width:20px">
+											<div style="margin-left:35px; width:500px; min-height:120px;
+											border:1px solid blue;">
+												${entry.antigo} <br>
+												PI: 10/0000006102 <br>
+												Processo: 01-P-01112/1993 <br>
+												Marca: Critex <br>
+												Modelo: 1300 <br>
+												${entry.antigo} <br>
+												PI: 10/0000006102 <br>
+												Processo: 01-P-01112/1993 <br>
+												Marca: Critex <br>
+												Modelo: 1300 <br>
+											</div>
+											</input>
+										</td>
+										<td style="vertical-align:top;">
+											<input type="radio" name="${entry.id}" style="float:left; width:20px">
+											<div style="margin-left:35px; width:500px; min-height:120px;
+											border:1px solid blue;">
+												${entry.novo} <br>
+												PI: 10/0000006102 <br>
+												Processo: 01-P-01112/1993 <br>
+												Marca: Critex <br>
+												Modelo: 1300 <br>
+											</div>
+											</input>
+										</td>
 									</tr>
 							</c:forEach>
 						</tbody>

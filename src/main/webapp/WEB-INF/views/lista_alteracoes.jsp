@@ -51,6 +51,7 @@ table tbody tr.clickable:hover td {
 	$(document).ready(function() {
 		$('#example').dataTable(
 								{
+									"bDeferRender" : true,
 									"sPaginationType" : "full_numbers",
 									"iDisplayLength" : 25,
 									"aLengthMenu" : [
