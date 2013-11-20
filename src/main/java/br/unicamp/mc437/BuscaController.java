@@ -22,6 +22,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.unicamp.mc437.Conflitos.Conflito;
 import br.unicamp.mc437.model.AlteracaoPatrimonio;
 import br.unicamp.mc437.model.LocalizacaoBem;
 import br.unicamp.mc437.model.Patrimonio;
@@ -66,7 +67,7 @@ public class BuscaController {
 	@Transactional
 	public ModelAndView conflito(ModelMap model) {
 		ModelAndView mav = new ModelAndView("conflito.jsp");
-		Conflitos c = new Conflitos();
+		Conflitos c = Conflitos.getInstance();
 		mav.addObject("lista",c.lista);
 	    
 		return mav;
@@ -182,6 +183,24 @@ public class BuscaController {
 			excelXLSX.lerPlanilha(filecontent);
 			
 			for (Patrimonio p : excelXLSX.getLista()) {
+				Query query = entityManager.createQuery("SELECT p FROM Patrimonio p WHERE p.chapinha = :chapinha");
+				query.setParameter("chapinha", p.getChapinha());
+				
+				try
+				{
+					Patrimonio p1 = (Patrimonio) query.getSingleResult();
+					Conflitos c = Conflitos.getInstance();
+					if (!p1.equals(p))
+					{
+						Conflito e = new Conflito("radio"+c.lista.size(),p1,p);
+						c.lista.add(e);
+					}
+				}
+				catch(Exception e)
+				{
+					
+				}
+				
 				entityManager.merge(p);
 			}
 			
