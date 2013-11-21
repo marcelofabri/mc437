@@ -43,7 +43,6 @@ table tbody tr.clickable:hover td {
 </style>
 
 <script type="text/javascript" language="javascript" src="media/js/jquery-1.10.2.js"></script>
-<script type="text/javascript" language="javascript" src="media/js/complete.js"></script>
 <script type="text/javascript" language="javascript" src="media/js/jquery.dataTables.js"></script>
 <script type="text/javascript" language="javascript" src="media/js/jquery.dataTables.columnFilter.js"></script>
 <script type="text/javascript" charset="utf-8">

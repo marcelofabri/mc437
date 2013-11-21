@@ -3,7 +3,8 @@ package br.unicamp.mc437;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PushbackInputStream;
-import java.util.List;
+import java.util.Date;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -51,14 +52,10 @@ public class BuscaController {
 	@Transactional
 	public ModelAndView detalhesPatrimonios(ModelMap model, @RequestParam String bem) {
 	  
-		System.out.println("Got request param: " + bem);  
-		
-		Query query = entityManager
-				.createQuery("SELECT p FROM Patrimonio p WHERE P.chapinha LIKE :number");
-		query.setParameter("number", bem);
+		Patrimonio p = entityManager.find(Patrimonio.class, bem);
 		
 		ModelAndView mav = new ModelAndView("detalhes.jsp");
-	    mav.addObject("pventry", query.getResultList().get(0));
+	    mav.addObject("pventry", p);
 	    
 		return mav;
 	}
@@ -137,7 +134,6 @@ public class BuscaController {
 			AlteracaoPatrimonio ap = new AlteracaoPatrimonio();
 			ap.setPatrimonio(p);
 			ap.setUsuarioCriacao("marcelo");
-			ap.setLocalizacaoAntiga(p.getLocalizacao());
 			LocalizacaoBem loc = new LocalizacaoBem(p.getLocalizacao());
 			loc.setImovel("TESTE");
 			ap.setLocalizacaoNova(loc);
@@ -151,17 +147,12 @@ public class BuscaController {
 	
 	@RequestMapping(value = "/listaAlteracoes", method = RequestMethod.GET)
 	@Transactional
-	public ModelAndView listaAlteracoes(ModelMap model) {
+	public ModelAndView listaAlteracoes() {
 		ModelAndView mav = new ModelAndView("lista_alteracoes.jsp");
 		
 		Query query = entityManager.createQuery("SELECT ap FROM AlteracaoPatrimonio ap JOIN FETCH ap.patrimonio WHERE ap.status = :status");
 		query.setParameter("status", StatusAlteracaoPatrimonio.PENDENTE);
 		
-		@SuppressWarnings("unchecked")
-		List<AlteracaoPatrimonio> results = query.getResultList();
-		for (AlteracaoPatrimonio ap : results) {
-			System.out.println(ap.getUsuarioCriacao());
-		}
 	    mav.addObject("lista", query.getResultList());
 	    
 	    return mav;
@@ -219,7 +210,7 @@ public class BuscaController {
 	
 	@RequestMapping(value = "/executaAlteracao", method = RequestMethod.POST)
 	@Transactional
-	public ModelAndView processUpdate( 
+	public ModelAndView inserirPedidoDeAlteracao( 
 			@RequestParam("j_pi") String pi, @RequestParam("j_imovel") String imovel,
 			@RequestParam("j_andar") String andar, @RequestParam("j_complemento") String complemento,
 			WebRequest webRequest, Model model)
@@ -230,17 +221,68 @@ public class BuscaController {
 		novoLocal.setComplemento(complemento);
 		novoLocal.setImovel(imovel);
 		ap.setLocalizacaoNova(novoLocal);
-		Query q = entityManager.createQuery("SELECT p FROM Patrimonio p WHERE p.chapinha = :chapinha");
-		q.setParameter("chapinha", pi);
-		Patrimonio p = (Patrimonio)q.getSingleResult();
+		
+		Patrimonio p = entityManager.find(Patrimonio.class, pi);
 		ap.setPatrimonio(p);
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	    String name = auth.getName();
 	    ap.setUsuarioCriacao(name);
-	    ap.setLocalizacaoAntiga(p.getLocalizacao());
 	    entityManager.merge(ap);
 	    entityManager.flush();
 		return new ModelAndView("requisicaoSucesso.html");
+	}
+	
+	@RequestMapping(value = "/processarAlteracoes", method = RequestMethod.POST)
+	@Transactional
+	public ModelAndView processarAlteracoes(WebRequest webRequest, Model model) {
+		Map<String, String[]> params = webRequest.getParameterMap();
+		
+		for (Map.Entry<String, String[]> entry : params.entrySet()) {
+		    String key = entry.getKey();
+		    
+		    if (key.startsWith("alteracao_")) {
+		    	
+		    	String[] value = entry.getValue();
+		    	
+		    	if (value.length > 0) {
+		    		StatusAlteracaoPatrimonio status = StatusAlteracaoPatrimonio.valueOf(value[0]);
+		    		
+		    		if (! StatusAlteracaoPatrimonio.APROVADA.equals(status) && 
+		    			! StatusAlteracaoPatrimonio.RECUSADA.equals(status)) {
+		    			continue;
+		    		}
+		    		
+		    		Integer id = Integer.parseInt(key.replaceFirst("alteracao_", ""));
+			    	AlteracaoPatrimonio ap = entityManager.find(AlteracaoPatrimonio.class, id);
+			    	
+			    	if (! StatusAlteracaoPatrimonio.PENDENTE.equals(ap.getStatus())) {
+			    		continue;
+			    	}
+			    	
+			    	ap.setStatus(status);
+			    	ap.setDataRevisao(new Date());
+			    	
+			    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+				    String name = auth.getName();
+				    ap.setUsuarioRevisao(name);
+			    	
+		    		if (status.equals(StatusAlteracaoPatrimonio.APROVADA)) {
+		    			Patrimonio p = ap.getPatrimonio();
+		    			p.setLocalizacao(ap.getLocalizacaoNova());
+		    			
+		    			entityManager.merge(p);
+		    		}
+		    		
+		    		entityManager.merge(ap);
+		    	}
+		    	
+			    entityManager.flush();		    	
+		    }
+		}
+		
+		ModelAndView modelView = listaAlteracoes();
+		modelView.addObject("updated", Boolean.TRUE);
+		return modelView;
 	}
 
 }

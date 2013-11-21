@@ -87,8 +87,6 @@ div.item {
 
 <script type="text/javascript" language="javascript"
 	src="media/js/jquery-1.10.2.js"></script>
-<script type="text/javascript" language="javascript"
-	src="media/js/complete.js"></script>
 <script type="text/javascript" charset="utf-8">
 	$(document).ready(function() {
 		$("button.voltar").click(function() {

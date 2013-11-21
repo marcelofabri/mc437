@@ -44,10 +44,10 @@ table tbody tr.clickable:hover td {
 </style>
 
 <script type="text/javascript" language="javascript" src="media/js/jquery-1.10.2.js"></script>
-<script type="text/javascript" language="javascript" src="media/js/complete.js"></script>
 <script type="text/javascript" language="javascript" src="media/js/jquery.dataTables.js"></script>
 <script type="text/javascript" language="javascript" src="media/js/jquery.dataTables.columnFilter.js"></script>
 <script type="text/javascript" language="javascript" src="media/js/bootstrap.js"></script>
+<script type="text/javascript" language="javascript" src="media/js/bootbox.js"></script>
 
 <script type="text/javascript" charset="utf-8">
 	$(document).ready(function() {
@@ -88,6 +88,20 @@ table tbody tr.clickable:hover td {
 				$(this).closest("tr").find(".exclusive-checkbox").not($(this)).removeAttr('checked');
 			}
 		});
+		
+		<c:if test="${updated != null and updated.booleanValue()}">
+			setTimeout(function(){ 
+				$(".alert").fadeOut();
+			}, 2000);
+		</c:if>
+		
+		$("#btnSalvar").click(function() {
+			bootbox.confirm("Voc&ecirc; tem certeza que deseja salvar as altera&ccedil;&otilde;es?", function(result) {
+				if (result) {
+					$("#formAlteracoes").submit();
+				}
+			}); 
+		});
 	});
 </script>
 </head>
@@ -104,13 +118,30 @@ table tbody tr.clickable:hover td {
 			<h1>Aprovar Altera&ccedil;&otilde;es</h1>
 		</div>
 		<div id="demo">
-			<form method="post" name="">
+			<c:if test="${updated != null}">
+				<c:choose>
+					<c:when test="${updated.booleanValue()}">
+		        		<div class="alert alert-success alert-dismissable fade in">
+		        			<a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>
+		        			Altera&ccedil;&otilde;es realizadas com sucesso!
+		        		</div>
+		   			 </c:when>
+					<c:otherwise>
+						<div class="alert alert-danger alert-dismissable fade in">
+							<a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>
+		        			N&ccedil;&otilde; foi poss&iacute;vel realizar as altera&ccedil;&otilde;es.
+		        		</div>
+		    		</c:otherwise>
+				</c:choose>
+			</c:if>
+			
+			<form method="POST" action="processarAlteracoes" id="formAlteracoes">
 				<table cellpadding="0" cellspacing="0" border="0" class="display" id="example" width="100%">
 					<thead>
 					 	<tr>
 					 		<th rowspan="2">N&uacute;mero PI</th>
-							<th colspan="3">Localiza&ccedil;&atilde;o Antiga</th>
-							<th colspan="3">Nova Localiza&ccedil;&atilde;o</th>
+							<th colspan="3">Localiza&ccedil;&atilde;o Atual</th>
+							<th colspan="3">Localiza&ccedil;&atilde;o Sugerida</th>
 							<th rowspan="2">Usu&aacute;rio</th>
 							<th rowspan="2">Data de Pedido</th>
 							<th rowspan="2">Aprovar</th>
@@ -130,9 +161,9 @@ table tbody tr.clickable:hover td {
 						<c:forEach var="entry" items="${lista}">
 							<tr>
 								<td>${entry.patrimonio.chapinha}</td>
-								<td>${entry.localizacaoAntiga.imovel}</td>
-								<td>${entry.localizacaoAntiga.andar}</td>
-								<td>${entry.localizacaoAntiga.complemento}</td>
+								<td>${entry.patrimonio.localizacao.imovel}</td>
+								<td>${entry.patrimonio.localizacao.andar}</td>
+								<td>${entry.patrimonio.localizacao.complemento}</td>
 								<td>${entry.localizacaoNova.imovel}</td>
 								<td>${entry.localizacaoNova.andar}</td>
 								<td>${entry.localizacaoNova.complemento}</td>
@@ -142,14 +173,14 @@ table tbody tr.clickable:hover td {
 									<input type="checkbox" name="alteracao_${entry.id}" value="APROVADA" class="exclusive-checkbox" />
 								</td>
 								<td style="text-align: center;">
-									<input type="checkbox" name="alteracao_${entry.id}" value="REJEITADA" class="exclusive-checkbox"/>
+									<input type="checkbox" name="alteracao_${entry.id}" value="RECUSADA" class="exclusive-checkbox"/>
 								</td>
 							</tr>
 						</c:forEach>
 	
 					</tbody>
 				</table>
-				<button type="submit" class="btn btn-primary css_right" style="margin-top: 20px; margin-right: 5px;">Salvar</button>
+				<button type="button" class="btn btn-primary css_right" id="btnSalvar" style="margin-top: 20px; margin-right: 5px;">Salvar</button>
 			</form>
 		</div>
 	</div>
