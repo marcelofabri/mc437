@@ -91,10 +91,8 @@ public class ExcelXLSX
             localizacao.setImovel(linha.get(11).getStringCellValue());
             
             linha.get(12).setCellType(Cell.CELL_TYPE_STRING); // para poder pegar como string
-            String andar = linha.get(12).getStringCellValue();
-            if (andar != null && andar.length() > 0) {
-            	localizacao.setAndar(andar.charAt(0));
-            }
+            localizacao.setAndar(linha.get(12).getStringCellValue());
+            
             localizacao.setComplemento(linha.get(13).toString());
             
             bem.setLocalizacao(localizacao);

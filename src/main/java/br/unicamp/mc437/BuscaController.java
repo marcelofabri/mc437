@@ -3,7 +3,9 @@ package br.unicamp.mc437;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PushbackInputStream;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
@@ -173,26 +175,30 @@ public class BuscaController {
 			ExcelXLSX excelXLSX = new ExcelXLSX();
 			excelXLSX.lerPlanilha(filecontent);
 			
+			List<String> chapinhas = new ArrayList<String>();
 			for (Patrimonio p : excelXLSX.getLista()) {
-				Query query = entityManager.createQuery("SELECT p FROM Patrimonio p WHERE p.chapinha = :chapinha");
-				query.setParameter("chapinha", p.getChapinha());
-				
-				try
-				{
-					Patrimonio p1 = (Patrimonio) query.getSingleResult();
-					Conflitos c = Conflitos.getInstance();
-					if (!p1.equals(p))
-					{
-						Conflito e = new Conflito("radio"+c.lista.size(),p1,p);
-						c.lista.add(e);
+				chapinhas.add(p.getChapinha());
+			}
+			
+			Query query = entityManager.createQuery("SELECT p FROM Patrimonio p WHERE p.chapinha IN :chapinhas");
+			query.setParameter("chapinhas", chapinhas);
+			
+			@SuppressWarnings("unchecked")
+			List<Patrimonio> patrimonios = query.getResultList();
+			
+			for (Patrimonio patrimonioXLS : excelXLSX.getLista()) {
+				for (Patrimonio patrimonioBD : patrimonios) {
+					if (patrimonioXLS.getChapinha().equals(patrimonioBD.getChapinha())) {
+
+						Conflitos c = Conflitos.getInstance();
+						if (patrimonioXLS.conflita(patrimonioBD)) {
+							Conflito e = new Conflito("radio" + c.lista.size(), patrimonioBD, patrimonioXLS);
+							c.lista.add(e);
+						}
+						break;
 					}
 				}
-				catch(Exception e)
-				{
-					
-				}
-				
-				entityManager.merge(p);
+				entityManager.merge(patrimonioXLS);
 			}
 			
 			entityManager.flush();
@@ -217,7 +223,7 @@ public class BuscaController {
 	{
 		AlteracaoPatrimonio ap = new AlteracaoPatrimonio();
 		LocalizacaoBem novoLocal = new LocalizacaoBem();
-		novoLocal.setAndar(andar.charAt(0));
+		novoLocal.setAndar(andar);
 		novoLocal.setComplemento(complemento);
 		novoLocal.setImovel(imovel);
 		ap.setLocalizacaoNova(novoLocal);
@@ -259,17 +265,18 @@ public class BuscaController {
 			    		continue;
 			    	}
 			    	
+			    	Patrimonio p = ap.getPatrimonio();
+			    	
 			    	ap.setStatus(status);
 			    	ap.setDataRevisao(new Date());
+			    	ap.setLocalizacaoAntiga(new LocalizacaoBem(p.getLocalizacao()));
 			    	
 			    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 				    String name = auth.getName();
 				    ap.setUsuarioRevisao(name);
 			    	
 		    		if (status.equals(StatusAlteracaoPatrimonio.APROVADA)) {
-		    			Patrimonio p = ap.getPatrimonio();
 		    			p.setLocalizacao(ap.getLocalizacaoNova());
-		    			
 		    			entityManager.merge(p);
 		    		}
 		    		

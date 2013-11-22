@@ -9,8 +9,8 @@ public class LocalizacaoBem {
 	@Column(name="imovel", length=50)
 	private String imovel;
 
-	@Column(name="andar", length=1)
-	private Character andar;
+	@Column(name="andar", length=50)
+	private String andar;
 	
 	@Column(name="complemento", length=50)
 	private String complemento;
@@ -33,11 +33,11 @@ public class LocalizacaoBem {
 		this.imovel = imovel;
 	}
 
-	public Character getAndar() {
+	public String getAndar() {
 		return andar;
 	}
 
-	public void setAndar(Character andar) {
+	public void setAndar(String andar) {
 		this.andar = andar;
 	}
 

@@ -1,18 +1,19 @@
 package br.unicamp.mc437.model;
 
 
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -64,9 +65,6 @@ public class Patrimonio {
 	@Enumerated(EnumType.STRING)
 	private TipoBem tipo;
 	
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-	private List<AlteracaoPatrimonio> alteracoes;
-
 	public String getOrgao() {
 		return orgao;
 	}
@@ -179,24 +177,56 @@ public class Patrimonio {
 		this.localizacao = localizacao;
 	}
 	
-	public boolean equals(Patrimonio p2)
-	{
-		if (this.getChapinha() != p2.getChapinha()) return false;
-		if (this.getDataAquisicao() != p2.getDataAquisicao()) return false;
-		if (this.getDataFim() != p2.getDataFim()) return false;
-		if (this.getDescricao() != p2.getDescricao()) return false;
-		if (this.getDocumentoFiscal() != p2.getDocumentoFiscal()) return false;
-		if (this.getLocalizacao().getAndar() != p2.getLocalizacao().getAndar()) return false;
-		if (this.getLocalizacao().getComplemento() != p2.getLocalizacao().getComplemento()) return false;
-		if (this.getLocalizacao().getImovel() != p2.getLocalizacao().getImovel()) return false;
-		if (this.getMarca() != p2.getMarca()) return false;
-		if (this.getModelo() != p2.getModelo()) return false;
-		if (this.getNumeroSerie() != p2.getNumeroSerie()) return false;
-		if (this.getOrgao() != p2.getOrgao()) return false;
-		if (this.getProcesso() != p2.getProcesso()) return false;
-		if (this.getSituacao() != p2.getSituacao()) return false;
-		if (this.getTipo() != p2.getTipo()) return false;
-		if (this.getValorCorrigido() != p2.getValorCorrigido()) return false;
-		return true;
+	public boolean conflita(Patrimonio p2) {
+		
+		try {
+			for (PropertyDescriptor propertyDescriptor : 
+			    Introspector.getBeanInfo(this.getClass(), Object.class).getPropertyDescriptors()) {
+
+				Method m = propertyDescriptor.getReadMethod();
+				
+				if (m != null) {
+					if (m.getReturnType().equals(LocalizacaoBem.class)) {
+						LocalizacaoBem l1 = (LocalizacaoBem) m.invoke(this);
+						LocalizacaoBem l2 = (LocalizacaoBem) m.invoke(p2);
+						
+						for (PropertyDescriptor descriptor : 
+						    Introspector.getBeanInfo(LocalizacaoBem.class, Object.class).getPropertyDescriptors()) {
+							Method mm = descriptor.getReadMethod();
+							
+							if (mm != null) {
+								Object r1 = mm.invoke(l1);
+								Object r2 = mm.invoke(l2);
+								if (r1 != r2 && (r1 != null && ! mm.invoke(l1).equals(mm.invoke(l2)))) {
+									System.out.println(String.format("Conflito no %s - campo %s", this.getChapinha(), mm.getName()));
+									return true;
+								}
+							}
+						}
+					} else {
+						Object r1 = m.invoke(this);
+						Object r2 = m.invoke(p2);
+						if (r1 != r2 && (r1 != null && ! r1.equals(r2))) {
+							System.out.println(String.format("Conflito no %s - campo %s", this.getChapinha(), m.getName()));
+							return true;
+						}
+					}
+				}
+			}
+		} catch (IntrospectionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return false;
 	}
 }

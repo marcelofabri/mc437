@@ -50,6 +50,17 @@ public class AlteracaoPatrimonio {
 	})
 	private LocalizacaoBem localizacaoNova;
 	
+	@Embedded
+	@AttributeOverrides({  
+	    @AttributeOverride(name="imovel",column=@Column(name="imovel_antigo", length=50)),  
+	    @AttributeOverride(name="andar",column=@Column(name="andar_antigo", length=50)),  
+	    @AttributeOverride(name="complemento",column=@Column(name="complemento_antigo", length=50))  
+	})
+	private LocalizacaoBem localizacaoAntiga;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	private Patrimonio patrimonio;
+	
 	public StatusAlteracaoPatrimonio getStatus() {
 		return status;
 	}
@@ -114,8 +125,11 @@ public class AlteracaoPatrimonio {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch=FetchType.LAZY)
-	private Patrimonio patrimonio;
-	
-	
+	public LocalizacaoBem getLocalizacaoAntiga() {
+		return localizacaoAntiga;
+	}
+
+	public void setLocalizacaoAntiga(LocalizacaoBem localizacaoAntiga) {
+		this.localizacaoAntiga = localizacaoAntiga;
+	}
 }
