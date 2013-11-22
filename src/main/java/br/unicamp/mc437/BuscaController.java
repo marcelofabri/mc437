@@ -62,7 +62,7 @@ public class BuscaController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/conflito", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/conflito", method = RequestMethod.GET)
 	@Transactional
 	public ModelAndView conflito(ModelMap model) {
 		ModelAndView mav = new ModelAndView("conflito.jsp");
@@ -78,7 +78,7 @@ public class BuscaController {
 		return "home.jsp";
 	}
 	
-	@RequestMapping(value = "/requisicao", method = RequestMethod.GET)
+	@RequestMapping(value = "/aluno/requisicao", method = RequestMethod.GET)
 	@Transactional
 	public ModelAndView requisicao(ModelMap model) {
 		ModelAndView mav = new ModelAndView("requisicao.jsp");
@@ -117,37 +117,15 @@ public class BuscaController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/upload", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/upload", method = RequestMethod.GET)
 	@Transactional
 	public ModelAndView upload(ModelMap model) {
 		ModelAndView mav = new ModelAndView("upload.jsp");
 	    
 		return mav;
 	}
-	
-	@RequestMapping(value = "/criaAlteracoes", method = RequestMethod.GET)
-	@Transactional
-	public String criaAlteracoes(ModelMap model) {
-		Query q = entityManager.createQuery("SELECT p FROM Patrimonio p WHERE p.chapinha = :chapinha");
-		q.setParameter("chapinha", "01/0000027628");
-		Patrimonio p = (Patrimonio) q.getSingleResult();
-		
-		for (int i = 0; i < 10; i++) {
-			AlteracaoPatrimonio ap = new AlteracaoPatrimonio();
-			ap.setPatrimonio(p);
-			ap.setUsuarioCriacao("marcelo");
-			LocalizacaoBem loc = new LocalizacaoBem(p.getLocalizacao());
-			loc.setImovel("TESTE");
-			ap.setLocalizacaoNova(loc);
-			
-			entityManager.merge(ap);
-		}
-		
-		entityManager.flush();
-		return "home.jsp";
-	}
-	
-	@RequestMapping(value = "/listaAlteracoes", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/admin/listaAlteracoes", method = RequestMethod.GET)
 	@Transactional
 	public ModelAndView listaAlteracoes() {
 		ModelAndView mav = new ModelAndView("lista_alteracoes.jsp");
@@ -160,7 +138,7 @@ public class BuscaController {
 	    return mav;
 	}
 	
-	@RequestMapping(value = "/uploadArquivo", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/uploadArquivo", method = RequestMethod.POST)
 	@Transactional
 	public ModelAndView processUpload(@RequestParam MultipartFile file, WebRequest webRequest, Model model) {
 
@@ -218,7 +196,7 @@ public class BuscaController {
         }
     }
 	
-	@RequestMapping(value = "/executaAlteracao", method = RequestMethod.POST)
+	@RequestMapping(value = "/aluno/executaAlteracao", method = RequestMethod.POST)
 	@Transactional
 	public ModelAndView inserirPedidoDeAlteracao( 
 			@RequestParam("j_pi") String pi, @RequestParam("j_imovel") String imovel,
@@ -248,7 +226,7 @@ public class BuscaController {
 	
 	}
 	
-	@RequestMapping(value = "/processarAlteracoes", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/processarAlteracoes", method = RequestMethod.POST)
 	@Transactional
 	public ModelAndView processarAlteracoes(WebRequest webRequest, Model model) {
 		Map<String, String[]> params = webRequest.getParameterMap();
