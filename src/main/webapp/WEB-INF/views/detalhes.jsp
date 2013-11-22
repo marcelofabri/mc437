@@ -88,12 +88,9 @@ div.item {
 <script type="text/javascript" language="javascript"
 	src="media/js/jquery-1.10.2.js"></script>
 <script type="text/javascript" charset="utf-8">
-	$(document).ready(function() {
-		$("button.voltar").click(function() {
-			history.go(-1);
-		});
-
-	});
+	function goback() {
+		location.href = 'busca';
+	}
 </script>
 </head>
 
@@ -249,8 +246,7 @@ div.item {
 			<table>
 				<tbody>
 					<tr>
-						<td><button class="voltar">Voltar</button></td>
-						<td><button class="salvar">Salvar</button></td>
+						<td><button class="voltar" onclick="goback()">Voltar</button></td>
 					</tr>
 				</tbody>
 			</table>

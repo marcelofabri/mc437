@@ -239,7 +239,7 @@ public class BuscaController {
 	    ap.setUsuarioCriacao(name);
 	    entityManager.merge(ap);
 	    entityManager.flush();
-		return new ModelAndView("requisicaoSucesso.html");
+		return new ModelAndView("requisicaoSucesso.jsp");
 	}
 	
 	@RequestMapping(value = "/processarAlteracoes", method = RequestMethod.POST)
