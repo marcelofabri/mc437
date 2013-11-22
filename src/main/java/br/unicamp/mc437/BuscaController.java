@@ -210,8 +210,12 @@ public class BuscaController {
             e.printStackTrace();
         }
 
-        modelMap.addAttribute("updated", updated);
-        return new ModelAndView("upload.jsp", modelMap);
+        if (Conflitos.getInstance().lista.size() < 1) {
+        	modelMap.addAttribute("updated", updated);
+        	return new ModelAndView("upload.jsp", modelMap);
+        } else {
+        	return conflito(modelMap);
+        }
     }
 	
 	@RequestMapping(value = "/executaAlteracao", method = RequestMethod.POST)
