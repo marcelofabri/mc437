@@ -9,6 +9,7 @@
 		<style type="text/css" title="currentStyle">
 			@import "media/css/demo_page.css";
 			@import "media/css/jquery.dataTables.css";
+			@import "media/css/bootstrap.css";
 		</style>
 				<style>
 			#header {
@@ -31,6 +32,16 @@
 					text-shadow: none;
 					font-size: 40px;
 				}
+				
+			
+			td, tr {
+				font-weight: bold;
+				padding: 5px;
+			}
+			
+			.long {
+				width: 330px;			
+			}
 		</style>
 		
 </head>
@@ -45,34 +56,39 @@
 				Sistema de Controle de Patrim&ocirc;nio - Instituto de Computa&ccedil;&atilde;o
 			</div>
 			<div>
-				<h1>Entrar</h1>
+				<h1>Fazer requisi&ccedil;&atilde;o</h1>
 			</div>
 			<div id="demo">
 			<form name='f' action="executaAlteracao" method="post">
-				<table style="border-width: 0;">
+				<table>
 					<tr>
-						<td>Número PI do item:</td>
-						<td><input type="text" name="j_pi" /></td>
+						<td>Número PI do item</td>
+						<td><input type="text" name="j_pi" class="form-control long" placeholder="Número PI do item" /></td>
 					</tr>
 					<tr>
-						<th colspan="2">Destino:</th>
+						<td colspan="2"><h2>Destino</h2></td>
 					</tr>
 					<tr>
-						<td>Imóvel:</td>
-						<td><input type="text" name="j_imovel" /></td>
+						<td>Imóvel</td>
+						<td><input type="text" name="j_imovel" class="form-control long" placeholder="Imóvel" /></td>
 					</tr>
 					<tr>
-						<td>Andar:</td>
-						<td><input type="text" name="j_andar" /></td>
+						<td>Andar</td>
+						<td><input type="text" name="j_andar" class="form-control long" placeholder="Andar" /></td>
 					</tr>
 					<tr>
-						<td>Complemento:</td>
-						<td><input type="text" name="j_complemento" /></td>
+						<td>Complemento</td>
+						<td><input type="text" name="j_complemento" class="form-control long" placeholder="Complemento" /></td>
 					</tr>
 						
+					<tr>
+						<td colspan="2" style="text-align: right;">
+							<input type="button" id="cancelar" value="Cancelar" class="btn btn-default" />&nbsp;
+							<input type="submit" id="enviar" value="Enviar" class="btn btn-primary" />
+						</td>
+					</tr>
 				</table>
-				<input type="submit" id="enviar" value="Enviar" />
-				<input type="button" id="cancelar" value="Cancelar" />
+				
 			</form>
 			
 			</div>
