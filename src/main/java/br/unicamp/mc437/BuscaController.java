@@ -225,6 +225,9 @@ public class BuscaController {
 			@RequestParam("j_andar") String andar, @RequestParam("j_complemento") String complemento,
 			WebRequest webRequest, Model model)
 	{
+        ModelMap modelMap = new ModelMap(); 
+        boolean updated = false;
+
 		AlteracaoPatrimonio ap = new AlteracaoPatrimonio();
 		LocalizacaoBem novoLocal = new LocalizacaoBem();
 		novoLocal.setAndar(andar);
@@ -239,7 +242,10 @@ public class BuscaController {
 	    ap.setUsuarioCriacao(name);
 	    entityManager.merge(ap);
 	    entityManager.flush();
-		return new ModelAndView("requisicaoSucesso.jsp");
+        
+	    modelMap.addAttribute("updated", updated);
+		return new ModelAndView("requisicao.jsp",modelMap);
+	
 	}
 	
 	@RequestMapping(value = "/processarAlteracoes", method = RequestMethod.POST)
