@@ -5,6 +5,7 @@
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="br.unicamp.mc437.model.Patrimonio"%>
 <%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <html>
 <head>
@@ -60,9 +61,17 @@ div.item {
 
 #wrap {
 	float: left;
-	width: 1000px;
+	width: 1200px;
 	margin: 0 auto;
 	background: #E0E2FF;
+}
+
+.historico {
+	float: left;
+	width: 1200px;
+	margin-top: 10px;
+	background: #E0E2FF;
+	clear: both;
 }
 
 #main {
@@ -84,7 +93,10 @@ div.item {
 	padding: 5px 10px;
 }
 </style>
-
+<script type="text/javascript" language="javascript"
+	src="media/js/jquery.dataTables.js"></script>
+<script type="text/javascript" language="javascript"
+	src="media/js/jquery.dataTables.columnFilter.js"></script>
 <script type="text/javascript" language="javascript"
 	src="media/js/jquery-1.10.2.js"></script>
 <script type="text/javascript" charset="utf-8">
@@ -154,7 +166,8 @@ div.item {
 							<label>Data Aquisição:</label>
 						</div>
 						<div class="element">
-							<label>${pventry.dataAquisicao}</label>
+							<label><fmt:formatDate value="${pventry.dataAquisicao}"
+									pattern="dd/MM/yyyy HH:mm" /></label>
 						</div>
 					</div>
 					<div class="item">
@@ -162,7 +175,8 @@ div.item {
 							<label>Data Fim:</label>
 						</div>
 						<div class="element">
-							<label>${pventry.dataFim}</label>
+							<label><fmt:formatDate value="${pventry.dataFim}"
+									pattern="dd/MM/yyyy HH:mm" /></label>
 						</div>
 					</div>
 					<div class="item">
@@ -242,6 +256,54 @@ div.item {
 				</div>
 			</div>
 		</form>
+		<c:if test="${hist.size() > 0}">
+			<div class="historico">
+				<table cellpadding="0" cellspacing="0" border="0"
+					class="display dataTable" id="example" width="100%">
+					<thead>
+						<tr>
+							<th rowspan="2">Data Cria&ccedil;&atilde;o</th>
+							<th rowspan="2">Data Revis&atilde;o</th>
+							<th rowspan="2">Status</th>
+							<th rowspan="2">Sugerido por</th>
+							<th rowspan="2">Revisado por</th>
+							<th rowspan="1" colspan="3">Localiza&ccedil;&atilde;o Antiga</th>
+							<th rowspan="1" colspan="3">Localiza&ccedil;&atilde;o
+								Sugerida</th>
+						</tr>
+						<tr>
+
+							<th rowspan="1">Imóvel</th>
+							<th rowspan="1">Andar</th>
+							<th rowspan="1">Complemento</th>
+							<th rowspan="1">Imóvel</th>
+							<th rowspan="1">Andar</th>
+							<th rowspan="1">Complemento</th>
+						</tr>
+
+					</thead>
+					<tbody>
+						<c:forEach var="alter" items="${hist}">
+							<tr>
+								<td><fmt:formatDate value="${alter.dataCriacao}"
+										pattern="dd/MM/yyyy HH:mm" /></td>
+								<td><fmt:formatDate value="${alter.dataRevisao}"
+										pattern="dd/MM/yyyy HH:mm" /></td>
+								<td>${alter.status}</td>
+								<td>${alter.usuarioCriacao}</td>
+								<td>${alter.usuarioRevisao}</td>
+								<td>${alter.localizacaoAntiga.imovel}</td>
+								<td>${alter.localizacaoAntiga.andar}</td>
+								<td>${alter.localizacaoAntiga.complemento}</td>
+								<td>${alter.localizacaoNova.imovel}</td>
+								<td>${alter.localizacaoNova.andar}</td>
+								<td>${alter.localizacaoNova.complemento}</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+		</c:if>
 		<div id="footer">
 			<table>
 				<tbody>
