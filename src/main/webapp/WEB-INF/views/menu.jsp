@@ -1,17 +1,25 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 
+<head>
+<script type="text/javascript" language="javascript"
+	src="media/js/bootstrap.js"></script>
+<script type="text/javascript" language="javascript"
+	src="media/js/bootbox.js"></script>
+<style type="text/css" title="currentStyle">
+@import "media/css/bootstrap.css";
+</style>
+</head>
 <div id="header">
 	<sec:authorize access="hasRole('ROLE_ADMIN')">
-		<b>Itens Pendentes: ${pendentes}</b>
 		<a href="/mc437/home2" style="margin-left: 5%">Tela Inicial</a>
 		<a href="/mc437/busca" style="margin-left: 5%">Lista de Bens</a>
 		<a href="/mc437/admin/upload" style="margin-left: 5%">Enviar
 			arquivo</a>
-			<a href="/mc437/requisicao" style="margin-left: 5%">Sugerir
+		<a href="/mc437/requisicao" style="margin-left: 5%">Sugerir
 			Alteração</a>
-		<a href="/mc437/admin/listaAlteracoes" style="margin-left: 5%">Aprovar
-			Alterações</a>
+		<a href="/mc437/admin/listaAlteracoes" style="margin-left: 5%"><span
+			class="badge">${pendentes}</span> Aprovar Alterações</a>
 		<a href="/mc437/contato" style="margin-left: 5%">Contato</a>
 		<a href="/mc437/j_spring_security_logout" style="margin-left: 5%">Sair</a>
 	</sec:authorize>
