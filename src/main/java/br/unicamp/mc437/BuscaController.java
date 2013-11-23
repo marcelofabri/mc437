@@ -84,7 +84,7 @@ public class BuscaController {
 		return "home.jsp";
 	}
 	
-	@RequestMapping(value = "/aluno/requisicao", method = RequestMethod.GET)
+	@RequestMapping(value = "/requisicao", method = RequestMethod.GET)
 	@Transactional
 	public ModelAndView requisicao(ModelMap model) {
 		ModelAndView mav = new ModelAndView("requisicao.jsp");
