@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -224,16 +225,21 @@ public class BuscaController {
 		novoLocal.setComplemento(complemento);
 		novoLocal.setImovel(imovel);
 		ap.setLocalizacaoNova(novoLocal);
-
-		Patrimonio p = entityManager.find(Patrimonio.class, pi);
-		ap.setPatrimonio(p);
-		Authentication auth = SecurityContextHolder.getContext()
-				.getAuthentication();
-		String name = auth.getName();
-		ap.setUsuarioCriacao(name);
-		entityManager.merge(ap);
-		entityManager.flush();
-
+		try
+		{
+			Patrimonio p = entityManager.find(Patrimonio.class, pi);
+			ap.setPatrimonio(p);
+			Authentication auth = SecurityContextHolder.getContext()
+					.getAuthentication();
+			String name = auth.getName();
+			ap.setUsuarioCriacao(name);
+			entityManager.merge(ap);
+			entityManager.flush();
+		}
+		catch (NoResultException nrex)
+		{
+			updated = false;
+		}
 		modelMap.addAttribute("updated", updated);
 		return new ModelAndView("requisicao.jsp", modelMap);
 	}
