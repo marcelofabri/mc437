@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -22,11 +25,22 @@ public class InterceptorController implements HandlerInterceptor {
 	public void postHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
-		Query query = entityManager
-				.createQuery("SELECT COUNT(ap) FROM AlteracaoPatrimonio ap WHERE ap.status = :status");
-		query.setParameter("status", StatusAlteracaoPatrimonio.PENDENTE);
+		
+		Authentication authentication = SecurityContextHolder.getContext()
+				.getAuthentication();
+		
+		for (GrantedAuthority auth : authentication.getAuthorities()) {
+            if ("ROLE_ADMIN".equals(auth.getAuthority())) {
+            	
+            	Query query = entityManager
+        				.createQuery("SELECT COUNT(ap) FROM AlteracaoPatrimonio ap WHERE ap.status = :status");
+        		query.setParameter("status", StatusAlteracaoPatrimonio.PENDENTE);
 
-		modelAndView.addObject("pendentes", query.getSingleResult());
+        		modelAndView.addObject("pendentes", query.getSingleResult());
+        		
+                break;
+            }
+        }
 	}
 
 	@Override

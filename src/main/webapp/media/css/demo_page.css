@@ -120,3 +120,11 @@
 	   -moz-border-radius: 3px;
 	        border-radius: 3px;
 }
+
+.badge-menu {
+	background-color: #FF2900 !important;
+	position: relative;
+	top: -8px;
+	left: -5px;
+	padding: 3px 5px !important; 
+}
