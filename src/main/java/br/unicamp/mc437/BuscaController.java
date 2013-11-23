@@ -228,6 +228,9 @@ public class BuscaController {
 		try
 		{
 			Patrimonio p = entityManager.find(Patrimonio.class, pi);
+			if (p == null) {
+				throw new NoResultException();
+			}
 			ap.setPatrimonio(p);
 			Authentication auth = SecurityContextHolder.getContext()
 					.getAuthentication();
@@ -238,6 +241,7 @@ public class BuscaController {
 		}
 		catch (NoResultException nrex)
 		{
+			nrex.printStackTrace();
 			updated = false;
 		}
 		modelMap.addAttribute("updated", updated);
