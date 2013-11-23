@@ -99,11 +99,6 @@ div.item {
 	src="media/js/jquery.dataTables.columnFilter.js"></script>
 <script type="text/javascript" language="javascript"
 	src="media/js/jquery-1.10.2.js"></script>
-<script type="text/javascript" charset="utf-8">
-	function goback() {
-		location.href = 'busca';
-	}
-</script>
 </head>
 
 <body id="dt_example">
@@ -308,7 +303,7 @@ div.item {
 			<table>
 				<tbody>
 					<tr>
-						<td><button class="voltar" onclick="goback()">Voltar</button></td>
+						<td><a class="voltar" href="busca">Voltar </a></td>
 					</tr>
 				</tbody>
 			</table>
