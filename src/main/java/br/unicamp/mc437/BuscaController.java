@@ -87,7 +87,7 @@ public class BuscaController {
 	
 	@RequestMapping(value = "/requisicao", method = RequestMethod.GET)
 	@Transactional
-	public ModelAndView requisicao(ModelMap model) {
+	public ModelAndView requisicao() {
 		ModelAndView mav = new ModelAndView("requisicao.jsp");
 		return mav;
 	}
@@ -216,7 +216,7 @@ public class BuscaController {
 			@RequestParam("j_andar") String andar,
 			@RequestParam("j_complemento") String complemento,
 			WebRequest webRequest, Model model) {
-		ModelMap modelMap = new ModelMap();
+		//ModelMap modelMap = new ModelMap();
 		boolean updated = true;
 
 		AlteracaoPatrimonio ap = new AlteracaoPatrimonio();
@@ -239,9 +239,12 @@ public class BuscaController {
 		catch (NoResultException nrex)
 		{
 			updated = false;
+			nrex.printStackTrace();
 		}
-		modelMap.addAttribute("updated", updated);
-		return new ModelAndView("requisicao.jsp", modelMap);
+		ModelAndView modelView = requisicao();
+		//modelMap.addAttribute("updated", updated);
+		modelView.addObject("updated", updated);
+		return modelView;
 	}
 	
 	@RequestMapping(value = "/admin/processarAlteracoes", method = RequestMethod.POST)

@@ -8,9 +8,9 @@
 <link rel="shortcut icon" type="image/ico" href="http://www.ic.unicamp.br/themes/siteictheme/logo.png" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Sistema de Controle de Patrim&ocirc;nio - Instituto de Computa&ccedil;&atilde;o</title>
+<script type="text/javascript" language="javascript" src="media/js/jquery-1.10.2.js"></script>
 <script type="text/javascript" language="javascript" src="media/js/bootstrap.js"></script>
 <script type="text/javascript" language="javascript" src="media/js/bootbox.js"></script>
-<script type="text/javascript" language="javascript" src="media/js/jquery-1.10.2.js"></script>
 <script type="text/javascript">
 
 <c:if test="${updated != null and updated.booleanValue()}">
@@ -57,6 +57,32 @@
 			}
 		</style>
 		
+<script type="text/javascript">
+function alerta(campo)
+{
+	var c = document.getElementById(campo);
+	var a = document.getElementById("valErro");
+	if (c.value == "")
+		a.style.visibility = "visible";
+	else
+		a.style.visibility = "hidden";
+}
+
+function verifica()
+{
+	if (document.getElementById("j_pi").value == "" ||
+			document.getElementById("j_imovel").value == "" ||
+			document.getElementById("j_andar").value == "" ||
+			document.getElementById("j_complemento").value == "")
+	{
+		document.getElementById("valErro").style.visibility = "visible";
+		return false;
+	}
+	document.getElementById("valErro").style.visibility = "hidden";
+	return true;
+}
+</script>
+		
 </head>
 <body id="dt_example">
 		
@@ -88,26 +114,31 @@
 		    		</c:otherwise>
 				</c:choose>
 			</c:if>
-			<form name='f' action="executaAlteracao" method="post">
+			<div class="alert alert-danger alert-dismissable fade in" id="valErro" style="visibility: hidden;">
+				<a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>
+		      			Todos os campos devem ser preenchidos.
+		   	</div>
+		     
+			<form name='f' action="executaAlteracao" method="post" onsubmit="return verifica();">
 				<table>
 					<tr>
 						<td>Número PI do item</td>
-						<td><input type="text" name="j_pi" class="form-control long" placeholder="Número PI do item" /></td>
+						<td><input type="text" id="j_pi" name="j_pi" class="form-control long" placeholder="Número PI do item" onblur="alerta('j_pi');" /></td>
 					</tr>
 					<tr>
 						<td colspan="2"><h2>Destino</h2></td>
 					</tr>
 					<tr>
 						<td>Imóvel</td>
-						<td><input type="text" name="j_imovel" class="form-control long" placeholder="Imóvel" /></td>
+						<td><input type="text" id="j_imovel" name="j_imovel" class="form-control long" placeholder="Imóvel"  onblur="alerta('j_imovel');" /></td>
 					</tr>
 					<tr>
 						<td>Andar</td>
-						<td><input type="text" name="j_andar" class="form-control long" placeholder="Andar" /></td>
+						<td><input type="text" id="j_andar" name="j_andar" class="form-control long" placeholder="Andar"  onblur="alerta('j_andar');" /></td>
 					</tr>
 					<tr>
 						<td>Complemento</td>
-						<td><input type="text" name="j_complemento" class="form-control long" placeholder="Complemento" /></td>
+						<td><input type="text" id="j_complemento" name="j_complemento" class="form-control long" placeholder="Complemento"  onblur="alerta('j_complemento');" /></td>
 					</tr>
 						
 					<tr>
