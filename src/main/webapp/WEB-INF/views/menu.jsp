@@ -5,6 +5,7 @@
 	<a href="/mc437/home2" style="margin-left: 5%">Tela Inicial</a>
 	<a href="/mc437/busca" style="margin-left: 5%">Lista de Bens</a>
 	<a href="/mc437/admin/upload" style="margin-left: 5%">Enviar arquivo</a>
+	<a href="/mc437/requisicao" style="margin-left: 5%">Sugerir Alteração</a>
 	<a href="/mc437/admin/listaAlteracoes" style="margin-left: 5%">Aprovar Alterações</a>
 	<a href="/mc437/contato" style="margin-left: 5%">Contato</a>
 	<a href="/mc437/j_spring_security_logout" style="margin-left: 5%">Sair</a>
