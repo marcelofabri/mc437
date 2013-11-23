@@ -142,7 +142,7 @@ table tbody tr.clickable:hover td {
 					<c:otherwise>
 						<div class="alert alert-danger alert-dismissable fade in">
 							<a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>
-		        			N&ccedil;&otilde; foi poss&iacute;vel realizar as altera&ccedil;&otilde;es.
+		        			N&atilde;o foi poss&iacute;vel realizar as altera&ccedil;&otilde;es.
 		        		</div>
 		    		</c:otherwise>
 				</c:choose>
