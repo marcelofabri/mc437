@@ -44,18 +44,22 @@
 			value="org.springframework.web.servlet.view.JstlView" />
 		<property name="prefix" value="/WEB-INF/views/" />
 	</bean>
-	
-	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
 
 	<mvc:resources location="media" mapping="/media/**" />
-	
+
 	<mvc:interceptors>
-	    <bean id="webContentInterceptor" class="org.springframework.web.servlet.mvc.WebContentInterceptor">
-	            <property name="cacheSeconds" value="0"/>
-	            <property name="useExpiresHeader" value="false"/>
-	            <property name="useCacheControlHeader" value="true"/>
-	            <property name="useCacheControlNoStore" value="true"/>
-	    </bean>     
+		<bean id="webContentInterceptor"
+			class="org.springframework.web.servlet.mvc.WebContentInterceptor">
+			<property name="cacheSeconds" value="0" />
+			<property name="useExpiresHeader" value="false" />
+			<property name="useCacheControlHeader" value="true" />
+			<property name="useCacheControlNoStore" value="true" />
+		</bean>
+
+		<bean class="br.unicamp.mc437.InterceptorController" />
 	</mvc:interceptors>
 
 
