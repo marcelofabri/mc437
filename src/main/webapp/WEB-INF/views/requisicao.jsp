@@ -20,10 +20,12 @@
 </c:if>
 </script>
 		<style type="text/css" title="currentStyle">
-			@import "media/css/demo_page.css";
-			@import "media/css/jquery.dataTables.css";
-			@import "media/css/bootstrap.css";
-		</style>
+@import "media/css/demo_page.css";
+
+@import "media/css/jquery.dataTables.css";
+
+@import "media/css/bootstrap.css";
+</style>
 				<style>
 			#header {
 				width: 100%;
