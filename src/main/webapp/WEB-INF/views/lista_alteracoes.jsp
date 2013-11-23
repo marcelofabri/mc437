@@ -15,9 +15,9 @@
 <title>Sistema de Controle de Patrim&ocirc;nio - Instituto de Computa&ccedil;&atilde;o</title>
 
 <style type="text/css" title="currentStyle">
-@import "media/css/demo_page.css";
-@import "media/css/bootstrap.css";
-@import "media/css/jquery.dataTables.css";
+@import "../media/css/demo_page.css";
+@import "../media/css/bootstrap.css";
+@import "../media/css/jquery.dataTables.css";
 </style>
 
 <style>
@@ -43,11 +43,11 @@ table tbody tr.clickable:hover td {
 
 </style>
 
-<script type="text/javascript" language="javascript" src="media/js/jquery-1.10.2.js"></script>
-<script type="text/javascript" language="javascript" src="media/js/jquery.dataTables.js"></script>
-<script type="text/javascript" language="javascript" src="media/js/jquery.dataTables.columnFilter.js"></script>
-<script type="text/javascript" language="javascript" src="media/js/bootstrap.js"></script>
-<script type="text/javascript" language="javascript" src="media/js/bootbox.js"></script>
+<script type="text/javascript" language="javascript" src="../media/js/jquery-1.10.2.js"></script>
+<script type="text/javascript" language="javascript" src="../media/js/jquery.dataTables.js"></script>
+<script type="text/javascript" language="javascript" src="../media/js/jquery.dataTables.columnFilter.js"></script>
+<script type="text/javascript" language="javascript" src="../media/js/bootstrap.js"></script>
+<script type="text/javascript" language="javascript" src="../media/js/bootbox.js"></script>
 
 <script type="text/javascript" charset="utf-8">
 	$(document).ready(function() {

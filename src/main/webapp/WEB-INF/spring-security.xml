@@ -12,7 +12,9 @@
         <intercept-url pattern="/erro" access="permitAll" />
         <intercept-url pattern="/contato" access="permitAll" />
         <intercept-url pattern="/media/**" access="permitAll" />
-        <intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
+        <intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/aluno/**" access="hasRole('ROLE_USER')" />
+        <intercept-url pattern="/**" access="hasRole('ROLE_USER') || hasRole('ROLE_ADMIN')" />
         <form-login login-page="/login" default-target-url="/home2" 
         	authentication-failure-url="/erro"  always-use-default-target="true"/>
         <logout logout-success-url="/logout" />
@@ -21,7 +23,8 @@
     <authentication-manager alias="authenticationManager">
         <authentication-provider>
             <user-service>
-                <user name="admin" password="mc437" authorities="ROLE_USER" />
+                <user name="admin" password="mc437" authorities="ROLE_ADMIN" />
+                <user name="aluno" password="aluno" authorities="ROLE_USER" />
             </user-service>
         </authentication-provider>
     </authentication-manager>
