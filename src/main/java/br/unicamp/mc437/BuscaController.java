@@ -226,7 +226,7 @@ public class BuscaController {
 			WebRequest webRequest, Model model)
 	{
         ModelMap modelMap = new ModelMap(); 
-        boolean updated = false;
+        boolean updated = true;
 
 		AlteracaoPatrimonio ap = new AlteracaoPatrimonio();
 		LocalizacaoBem novoLocal = new LocalizacaoBem();
