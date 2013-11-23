@@ -87,6 +87,34 @@ table tbody tr.clickable:hover td {
 			if ($(this).is(':checked')) {
 				$(this).closest("tr").find(".exclusive-checkbox").not($(this)).removeAttr('checked');
 			}
+			
+			var id = $(this).attr('id');
+			if (id !== "checkBoxRecusarTodos" && id !== "checkBoxAprovarTodos") {
+				var todosAprovadosSelecionados = true, todosRecusadosSelecionados = true;
+				
+				$("tbody").find(".exclusive-checkbox[value='APROVADA']").each(function (){
+					if (! $(this).is(':checked')) {
+						todosAprovadosSelecionados = false;
+					}
+				});
+				
+				$("tbody").find(".exclusive-checkbox[value='RECUSADA']").each(function (){
+					if (! $(this).is(':checked')) {
+						todosRecusadosSelecionados = false;
+					}
+				});
+				
+				if (todosAprovadosSelecionados) {
+					$("#checkBoxAprovarTodos").prop('checked', true);
+					$("#checkBoxRecusarTodos").prop('checked', false);
+				} else if (todosRecusadosSelecionados) {
+					$("#checkBoxAprovarTodos").prop('checked', false);
+					$("#checkBoxRecusarTodos").prop('checked', true);
+				} else {
+					$("#checkBoxAprovarTodos").prop('checked', false);
+					$("#checkBoxRecusarTodos").prop('checked', false);
+				}
+			}
 		});
 		
 		<c:if test="${updated != null and updated.booleanValue()}">
@@ -114,6 +142,24 @@ table tbody tr.clickable:hover td {
 				    }
 				  }
 			});
+		});
+		
+		$("#checkBoxRecusarTodos").change(function() {
+			if ($(this).is(':checked')) {
+				$("tbody").find(".exclusive-checkbox[value='APROVADA']").prop('checked', false);
+				$("tbody").find(".exclusive-checkbox[value='RECUSADA']").prop('checked', true);
+			} else {
+				$("tbody").find(".exclusive-checkbox[value='RECUSADA']").prop('checked', false);
+			}
+		});
+		
+		$("#checkBoxAprovarTodos").change(function() {
+			if ($(this).is(':checked')) {
+				$("tbody").find(".exclusive-checkbox[value='RECUSADA']").prop('checked', false);
+				$("tbody").find(".exclusive-checkbox[value='APROVADA']").prop('checked', true);
+			} else {
+				$("tbody").find(".exclusive-checkbox[value='APROVADA']").prop('checked', false);
+			}
 		});
 	});
 </script>
@@ -157,8 +203,8 @@ table tbody tr.clickable:hover td {
 							<th colspan="3">Localiza&ccedil;&atilde;o Sugerida</th>
 							<th rowspan="2">Usu&aacute;rio</th>
 							<th rowspan="2">Data de Pedido</th>
-							<th rowspan="2">Aprovar</th>
-							<th rowspan="2">Recusar</th>
+							<th>Aprovar</th>
+							<th>Recusar</th>
 						</tr>
 						<tr>
 							<th>Im&oacute;vel</th>
@@ -167,6 +213,12 @@ table tbody tr.clickable:hover td {
 							<th>Im&oacute;vel</th>
 							<th>Andar</th>
 							<th>Complemento</th>
+							<th style="text-align: center; padding: 3px 10px;">
+								<input type="checkbox" class="exclusive-checkbox" id="checkBoxAprovarTodos"/>
+							</th>
+							<th style="text-align: center; padding: 3px 10px;">
+								<input type="checkbox"  class="exclusive-checkbox" id="checkBoxRecusarTodos"/>
+							</th>
 						</tr>
 					</thead>
 					<tbody>
