@@ -96,11 +96,24 @@ table tbody tr.clickable:hover td {
 		</c:if>
 		
 		$("#btnSalvar").click(function() {
-			bootbox.confirm("Voc&ecirc; tem certeza que deseja salvar as altera&ccedil;&otilde;es?", function(result) {
-				if (result) {
-					$("#formAlteracoes").submit();
-				}
-			}); 
+			
+			bootbox.dialog({
+				  message: "Voc&ecirc; tem certeza que deseja salvar as altera&ccedil;&otilde;es?",
+				  title: "Aten&ccedil;&atilde;o!",
+				  buttons: {
+				    danger: {
+				      label: "Cancelar",
+				      className: "btn-danger"
+				    },
+				    main: {
+				      label: "OK",
+				      className: "btn-primary",
+				      callback: function() {
+				   		$("#formAlteracoes").submit();
+				      }
+				    }
+				  }
+			});
 		});
 	});
 </script>
