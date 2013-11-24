@@ -130,8 +130,8 @@
 						                        <strong>Im&oacute;vel:</strong> ${entry.patrimonioAntigo.localizacao.imovel} <br />
 						                        <strong>Andar:</strong> ${entry.patrimonioAntigo.localizacao.andar} <br />
 						                        <strong>Complemento:</strong> ${entry.patrimonioAntigo.localizacao.complemento} <br />
-						                        <strong>Situa&ccedil;&atilde;o:</strong> ${entry.patrimonioAntigo.situacao} <br />
-						                        <strong>Tipo:</strong> ${entry.patrimonioAntigo.tipo}
+						                        <strong>Situa&ccedil;&atilde;o:</strong> ${entry.patrimonioAntigo.situacao.toString()} <br />
+						                        <strong>Tipo:</strong> ${entry.patrimonioAntigo.tipo.toString()}
 											</div>
 										</td>
 										<td style="vertical-align:top;">
@@ -151,8 +151,8 @@
 						                        <strong>Im&oacute;vel:</strong> ${entry.patrimonioNovo.localizacao.imovel} <br />
 						                        <strong>Andar:</strong> ${entry.patrimonioNovo.localizacao.andar} <br />
 						                        <strong>Complemento:</strong> ${entry.patrimonioNovo.localizacao.complemento} <br />
-						                        <strong>Situa&ccedil;&atilde;o:</strong> ${entry.patrimonioNovo.situacao} <br />
-						                        <strong>Tipo:</strong> ${entry.patrimonioNovo.tipo}
+						                        <strong>Situa&ccedil;&atilde;o:</strong> ${entry.patrimonioNovo.situacao.toString()} <br />
+						                        <strong>Tipo:</strong> ${entry.patrimonioNovo.tipo.toString()}
 											</div>
 										</td>
 									</tr>
