@@ -1,15 +1,6 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
 
-<head>
-<script type="text/javascript" language="javascript"
-	src="media/js/bootstrap.js"></script>
-<script type="text/javascript" language="javascript"
-	src="media/js/bootbox.js"></script>
-<style type="text/css" title="currentStyle">
-@import "media/css/bootstrap.css";
-</style>
-</head>
 <div id="header">
 	<sec:authorize access="hasRole('ROLE_ADMIN')">
 		<a href="/mc437/home2" style="margin-left: 5%">In&iacute;cio</a>

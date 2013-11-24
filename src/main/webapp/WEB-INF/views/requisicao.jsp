@@ -5,28 +5,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link rel="shortcut icon" type="image/ico" href="http://www.ic.unicamp.br/themes/siteictheme/logo.png" />
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Sistema de Controle de Patrim&ocirc;nio - Instituto de Computa&ccedil;&atilde;o</title>
-<script type="text/javascript" language="javascript" src="media/js/jquery-1.10.2.js"></script>
-<script type="text/javascript" language="javascript" src="media/js/bootstrap.js"></script>
-<script type="text/javascript" language="javascript" src="media/js/bootbox.js"></script>
-<script type="text/javascript">
+	<link rel="shortcut icon" type="image/ico" href="http://www.ic.unicamp.br/themes/siteictheme/logo.png" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Sistema de Controle de Patrim&ocirc;nio - Instituto de Computa&ccedil;&atilde;o</title>
+				
+	<style type="text/css" title="currentStyle">
+		@import "media/css/demo_page.css";
+		@import "media/css/jquery.dataTables.css";
+		@import "media/css/bootstrap.css";
+	</style>
 
-<c:if test="${updated != null and updated.booleanValue()}">
-	setTimeout(function(){ 
-		$(".alert").fadeOut();
-	}, 2000);
-</c:if>
-</script>
-		<style type="text/css" title="currentStyle">
-@import "media/css/demo_page.css";
-
-@import "media/css/jquery.dataTables.css";
-
-@import "media/css/bootstrap.css";
-</style>
-				<style>
+	<style>
 			#header {
 				width: 100%;
 				margin: 0;
@@ -57,33 +46,43 @@
 			.long {
 				width: 330px;			
 			}
-		</style>
+	</style>
 		
-<script type="text/javascript">
-function alerta(campo)
-{
-	var c = document.getElementById(campo);
-	var a = document.getElementById("valErro");
-	if (c.value == "")
-		a.style.visibility = "visible";
-	else
-		a.style.visibility = "hidden";
-}
+	<script type="text/javascript" language="javascript" src="media/js/jquery-1.10.2.js"></script>
+	<script type="text/javascript" language="javascript" src="media/js/jquery.dataTables.js"></script>
+	<script type="text/javascript" language="javascript" src="media/js/jquery.dataTables.columnFilter.js"></script>
+	<script type="text/javascript" language="javascript" src="media/js/bootstrap.js"></script>
+	<script type="text/javascript" language="javascript" src="media/js/bootbox.js"></script>
 
-function verifica()
-{
-	if (document.getElementById("j_pi").value == "" ||
-			document.getElementById("j_imovel").value == "" ||
-			document.getElementById("j_andar").value == "" ||
-			document.getElementById("j_complemento").value == "")
-	{
-		document.getElementById("valErro").style.visibility = "visible";
-		return false;
+	<script type="text/javascript">
+	
+	<c:if test="${updated != null and updated.booleanValue()}">
+		setTimeout(function(){ 
+			$(".alert").fadeOut();
+		}, 2000);
+	</c:if>
+	
+	function alerta(campo) {
+		var c = document.getElementById(campo);
+		var a = document.getElementById("valErro");
+		if (c.value == "")
+			a.style.visibility = "visible";
+		else
+			a.style.visibility = "hidden";
 	}
-	document.getElementById("valErro").style.visibility = "hidden";
-	return true;
-}
-</script>
+	
+	function verifica() {
+		if (document.getElementById("j_pi").value == "" ||
+				document.getElementById("j_imovel").value == "" ||
+				document.getElementById("j_andar").value == "" ||
+				document.getElementById("j_complemento").value == "") {
+			document.getElementById("valErro").style.visibility = "visible";
+			return false;
+		}
+		document.getElementById("valErro").style.visibility = "hidden";
+		return true;
+	}
+	</script>
 		
 </head>
 <body id="dt_example">

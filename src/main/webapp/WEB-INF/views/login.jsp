@@ -37,7 +37,9 @@
 		
 		<script type="text/javascript" language="javascript" src="media/js/jquery-1.10.2.js"></script>
 		<script type="text/javascript" language="javascript" src="media/js/jquery.dataTables.js"></script>
+		<script type="text/javascript" language="javascript" src="media/js/jquery.dataTables.columnFilter.js"></script>
 		<script type="text/javascript" language="javascript" src="media/js/bootstrap.js"></script>
+		<script type="text/javascript" language="javascript" src="media/js/bootbox.js"></script>
 		
 	</head>
 	

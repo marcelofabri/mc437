@@ -19,14 +19,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import br.unicamp.mc437.Conflitos.Conflito;
 import br.unicamp.mc437.model.AlteracaoPatrimonio;
 import br.unicamp.mc437.model.LocalizacaoBem;
 import br.unicamp.mc437.model.Patrimonio;
@@ -34,10 +35,21 @@ import br.unicamp.mc437.model.StatusAlteracaoPatrimonio;
 
 @Controller
 @RequestMapping("")
+@SessionAttributes({"conflitos", "patrimoniosAInserir"})
 public class BuscaController {
 
 	@PersistenceContext(unitName = "mc437PersistenceUnit")
 	private EntityManager entityManager;
+	
+	@ModelAttribute("conflitos")
+	private List<Conflito> initConflitos() {
+		return new ArrayList<Conflito>();
+	}
+	
+	@ModelAttribute("patrimoniosAInserir")
+	private List<Patrimonio> initPatrimoniosAInserir() {
+		return new ArrayList<Patrimonio>();
+	}
 
 	@RequestMapping(value = "/busca", method = RequestMethod.GET)
 	@Transactional
@@ -69,16 +81,6 @@ public class BuscaController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/admin/conflito", method = RequestMethod.GET)
-	@Transactional
-	public ModelAndView conflito(ModelMap model) {
-		ModelAndView mav = new ModelAndView("conflito.jsp");
-		Conflitos c = Conflitos.getInstance();
-		mav.addObject("lista", c.lista);
-
-		return mav;
-	}
-
 	@RequestMapping(value = { "/home", "" }, method = RequestMethod.GET)
 	@Transactional
 	public String home(ModelMap model) {
@@ -149,10 +151,15 @@ public class BuscaController {
 	@RequestMapping(value = "/admin/uploadArquivo", method = RequestMethod.POST)
 	@Transactional
 	public ModelAndView processUpload(@RequestParam MultipartFile file,
-			WebRequest webRequest, Model model) {
+			WebRequest webRequest, Model model, 
+			@ModelAttribute("conflitos") List<Conflito> conflitos,
+			@ModelAttribute("patrimoniosAInserir") List<Patrimonio> patrimoniosAInserir) {
 
-		ModelMap modelMap = new ModelMap();
 		boolean updated = false;
+		
+		conflitos.clear();
+		patrimoniosAInserir.clear();
+		
 		try {
 			InputStream filecontent = file.getInputStream();
 			if (!filecontent.markSupported()) {
@@ -179,19 +186,36 @@ public class BuscaController {
 					if (patrimonioXLS.getChapinha().equals(
 							patrimonioBD.getChapinha())) {
 
-						Conflitos c = Conflitos.getInstance();
 						if (patrimonioXLS.conflita(patrimonioBD)) {
-							Conflito e = new Conflito("radio" + c.lista.size(),
-									patrimonioBD, patrimonioXLS);
-							c.lista.add(e);
+							Conflito c = new Conflito(patrimonioBD, patrimonioXLS);
+							conflitos.add(c);
 						}
 						break;
 					}
 				}
-				entityManager.merge(patrimonioXLS);
+			}
+
+			boolean deveInserir = conflitos.size() < 1;
+			
+			for (Patrimonio patrimonioXLS : excelXLSX.getLista()) {
+				if (deveInserir) {
+					entityManager.merge(patrimonioXLS);
+				} else {
+					boolean temConflito = false;
+					for (Conflito conflito : conflitos) {
+						if (conflito.getPatrimonioNovo().getChapinha().equals(patrimonioXLS.getChapinha())) {
+							temConflito = true;
+							break;
+						}
+					}
+					if (! temConflito) {
+						patrimoniosAInserir.add(patrimonioXLS);
+					}
+				}
 			}
 
 			entityManager.flush();
+			
 
 			updated = true;
         } catch (IllegalStateException e) {
@@ -200,11 +224,14 @@ public class BuscaController {
             e.printStackTrace();
         }
 
-        if (Conflitos.getInstance().lista.size() < 1) {
+        if (conflitos.size() < 1) {
+        	ModelMap modelMap = new ModelMap();
         	modelMap.addAttribute("updated", updated);
         	return new ModelAndView("upload.jsp", modelMap);
         } else {
-        	return conflito(modelMap);
+        	ModelAndView mav = new ModelAndView("conflito.jsp");
+    		mav.addObject("lista", conflitos);
+        	return mav;
         }
 	}
 
@@ -311,5 +338,4 @@ public class BuscaController {
 		modelView.addObject("updated", Boolean.TRUE);
 		return modelView;
 	}
-
 }
