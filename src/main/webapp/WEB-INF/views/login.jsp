@@ -41,6 +41,13 @@
 		<script type="text/javascript" language="javascript" src="media/js/bootstrap.js"></script>
 		<script type="text/javascript" language="javascript" src="media/js/bootbox.js"></script>
 		
+		<script>
+			$(document).ready(function() {
+				$("#inputUsuario").focus();
+			});
+		
+		</script>
+		
 	</head>
 	
 	<body id="dt_example">
@@ -71,7 +78,7 @@
 				  <div class="form-group">
 				    <label for="inputUsuario" class="col-sm-2 control-label">Usuário</label>
 				    <div class="col-sm-10">
-				      <input type="text" class="form-control" placeholder="Usuário" name="j_username" id="inputUsuario">
+				      <input type="text" class="form-control" placeholder="Usuário" autofocus="autofocus" name="j_username" id="inputUsuario">
 				    </div>
 				  </div>
 				  <div class="form-group">

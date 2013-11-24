@@ -53,6 +53,7 @@ div.element label {
 	text-align: left;
 	text-shadow: none;
 	font-size: 12px;
+	font-weight: normal;
 }
 
 div.item {
@@ -61,30 +62,28 @@ div.item {
 
 #wrap {
 	float: left;
-	width: 1200px;
+	width: 100%;
 	margin: 0 auto;
-	background: #E0E2FF;
 }
 
 .historico {
 	float: left;
-	width: 1200px;
+	width: 100%;
 	margin-top: 10px;
-	background: #E0E2FF;
 	clear: both;
 }
 
 #main {
 	float: left;
 	text-align: left;
-	width: 330px auto;
+	width: 50%;
 	padding: 10px;
 }
 
 #sidebar {
 	float: right;
 	text-align: left;
-	width: 640px;
+	width: 50%;
 	padding: 10px;
 }
 
@@ -99,6 +98,39 @@ div.item {
 <script type="text/javascript" language="javascript" src="media/js/jquery.dataTables.columnFilter.js"></script>
 <script type="text/javascript" language="javascript" src="media/js/bootstrap.js"></script>
 <script type="text/javascript" language="javascript" src="media/js/bootbox.js"></script>
+
+<script type="text/javascript" charset="utf-8">
+	$(document).ready(function() {
+		$('#example').dataTable(
+				{
+					"bDeferRender" : true,
+					"sPaginationType" : "full_numbers",
+					"iDisplayLength" : 25,
+					"aLengthMenu" : [
+							[ 10, 25, 50, 100, 250 ],
+							[ 10, 25, 50, 100, 250 ] ],
+					"oLanguage" : {
+						"oPaginate" : {
+							"sFirst" : "Primeira",
+							"sLast" : "Última",
+							"sNext" : "Próxima",
+							"sPrevious" : "Anterior"
+						},
+						"sEmptyTable" : "Não há dados disponíveis",
+						"sInfo" : "Mostrando _START_ a _END_ de _TOTAL_ itens",
+						"sInfoEmpty" : "Mostrando 0 a 0 de 0 itens",
+						"sInfoFiltered" : "(filtrados de _MAX_ itens)",
+						"sInfoThousands" : ".",
+						"sLengthMenu" : "Mostrar _MENU_ itens",
+						"sLoadingRecords" : "Carregando...",
+						"sProcessing" : "Processando...",
+						"sSearch" : "Busca:",
+						"sZeroRecords" : "Nenhum resultado encontrado"
+					},
+					"aaSorting": [[ 1, "desc" ]]
+		}).columnFilter();
+	});
+</script>
 
 </head>
 
@@ -119,7 +151,7 @@ div.item {
 				<div id="main">
 					<div class="item">
 						<div class="name">
-							<label>Órgão:</label>
+							<label>Órg&atilde;o:</label>
 						</div>
 						<div class="element">
 							<label>${pventry.orgao}</label>
@@ -127,7 +159,7 @@ div.item {
 					</div>
 					<div class="item">
 						<div class="name">
-							<label>Número PI:</label>
+							<label>N&uacute;mero PI:</label>
 						</div>
 						<div class="element">
 							<label>${pventry.chapinha}</label>
@@ -135,7 +167,7 @@ div.item {
 					</div>
 					<div class="item">
 						<div class="name">
-							<label>Número Processo:</label>
+							<label>N&uacute;mero Processo:</label>
 						</div>
 						<div class="element">
 							<label>${pventry.processo}</label>
@@ -143,7 +175,7 @@ div.item {
 					</div>
 					<div class="item">
 						<div class="name">
-							<label>Número Série:</label>
+							<label>N&uacute;mero S&eacute;rie:</label>
 						</div>
 						<div class="element">
 							<label>${pventry.numeroSerie}</label>
@@ -159,11 +191,11 @@ div.item {
 					</div>
 					<div class="item">
 						<div class="name">
-							<label>Data Aquisição:</label>
+							<label>Data Aquisiç&atilde;o:</label>
 						</div>
 						<div class="element">
 							<label><fmt:formatDate value="${pventry.dataAquisicao}"
-									pattern="dd/MM/yyyy HH:mm" /></label>
+									pattern="dd/MM/yyyy" /></label>
 						</div>
 					</div>
 					<div class="item">
@@ -172,7 +204,7 @@ div.item {
 						</div>
 						<div class="element">
 							<label><fmt:formatDate value="${pventry.dataFim}"
-									pattern="dd/MM/yyyy HH:mm" /></label>
+									pattern="dd/MM/yyyy" /></label>
 						</div>
 					</div>
 					<div class="item">
@@ -187,7 +219,7 @@ div.item {
 				<div id="sidebar">
 					<div class="item">
 						<div class="name">
-							<label>Descrição:</label>
+							<label>Descriç&atilde;o:</label>
 						</div>
 						<div class="element">
 							<label>${pventry.descricao}</label>
@@ -211,7 +243,7 @@ div.item {
 					</div>
 					<div class="item">
 						<div class="name">
-							<label>Imóvel:</label>
+							<label>Im&oacute;vel:</label>
 						</div>
 						<div class="element">
 							<label>${pventry.localizacao.imovel}</label>
@@ -235,10 +267,10 @@ div.item {
 					</div>
 					<div class="item">
 						<div class="name">
-							<label>Situação:</label>
+							<label>Situaç&atilde;o:</label>
 						</div>
 						<div class="element">
-							<label>${pventry.situacao}</label>
+							<label>${pventry.situacao.toString()}</label>
 						</div>
 					</div>
 					<div class="item">
@@ -246,7 +278,7 @@ div.item {
 							<label>Tipo:</label>
 						</div>
 						<div class="element">
-							<label>${pventry.tipo}</label>
+							<label>${pventry.tipo.toString()}</label>
 						</div>
 					</div>
 				</div>
@@ -254,6 +286,8 @@ div.item {
 		</form>
 		<c:if test="${hist.size() > 0}">
 			<div class="historico">
+				<h1>Hist&oacute;rico do bem ${pventry.chapinha}</h1>
+				
 				<table cellpadding="0" cellspacing="0" border="0"
 					class="display dataTable" id="example" width="100%">
 					<thead>
@@ -269,10 +303,10 @@ div.item {
 						</tr>
 						<tr>
 
-							<th rowspan="1">Imóvel</th>
+							<th rowspan="1">Im&oacute;vel</th>
 							<th rowspan="1">Andar</th>
 							<th rowspan="1">Complemento</th>
-							<th rowspan="1">Imóvel</th>
+							<th rowspan="1">Im&oacute;vel</th>
 							<th rowspan="1">Andar</th>
 							<th rowspan="1">Complemento</th>
 						</tr>
@@ -285,7 +319,7 @@ div.item {
 										pattern="dd/MM/yyyy HH:mm" /></td>
 								<td><fmt:formatDate value="${alter.dataRevisao}"
 										pattern="dd/MM/yyyy HH:mm" /></td>
-								<td>${alter.status}</td>
+								<td>${alter.status.toString()}</td>
 								<td>${alter.usuarioCriacao}</td>
 								<td>${alter.usuarioRevisao}</td>
 								<td>${alter.localizacaoAntiga.imovel}</td>
@@ -301,13 +335,7 @@ div.item {
 			</div>
 		</c:if>
 		<div id="footer">
-			<table>
-				<tbody>
-					<tr>
-						<td><a class="voltar" href="busca">Voltar </a></td>
-					</tr>
-				</tbody>
-			</table>
+			<a class="voltar" href="busca">Voltar</a>
 		</div>
 	</div>
 </body>

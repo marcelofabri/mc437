@@ -198,7 +198,6 @@ public class Patrimonio {
 								Object r1 = mm.invoke(l1);
 								Object r2 = mm.invoke(l2);
 								if (r1 != r2 && (r1 != null && ! mm.invoke(l1).equals(mm.invoke(l2)))) {
-									System.out.println(String.format("Conflito no %s - campo %s", this.getChapinha(), mm.getName()));
 									return true;
 								}
 							}
@@ -207,7 +206,6 @@ public class Patrimonio {
 						Object r1 = m.invoke(this);
 						Object r2 = m.invoke(p2);
 						if (r1 != r2 && (r1 != null && ! r1.equals(r2))) {
-							System.out.println(String.format("Conflito no %s - campo %s", this.getChapinha(), m.getName()));
 							return true;
 						}
 					}

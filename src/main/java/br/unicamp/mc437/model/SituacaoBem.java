@@ -25,4 +25,17 @@ public enum SituacaoBem {
 		
 		return DESCONHECIDO;
 	}
+	
+	public String toString() {
+		if (this.equals(SituacaoBem.ATIVO)) {
+			return "Ativo";
+		}
+		if (this.equals(SituacaoBem.CEDIDO)) {
+			return "Cedido";
+		}
+		if (this.equals(SituacaoBem.CEDIDO_TERCEIROS)) {
+			return "Cedido para Terceiros";
+		}
+		return "Desconhecido";
+	}
 }
