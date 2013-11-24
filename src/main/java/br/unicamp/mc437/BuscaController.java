@@ -113,8 +113,8 @@ public class BuscaController {
 	@RequestMapping(value = "/erro", method = RequestMethod.GET)
 	@Transactional
 	public ModelAndView erro(ModelMap model) {
-		ModelAndView mav = new ModelAndView("erro.jsp");
-
+		ModelAndView mav = login(model);
+		mav.addObject("erro", true);
 		return mav;
 	}
 

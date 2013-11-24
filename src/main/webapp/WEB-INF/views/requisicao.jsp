@@ -56,32 +56,28 @@
 
 	<script type="text/javascript">
 	
-	<c:if test="${updated != null and updated.booleanValue()}">
-		setTimeout(function(){ 
-			$(".alert").fadeOut();
-		}, 2000);
-	</c:if>
-	
-	function alerta(campo) {
-		var c = document.getElementById(campo);
-		var a = document.getElementById("valErro");
-		if (c.value == "")
-			a.style.visibility = "visible";
-		else
-			a.style.visibility = "hidden";
-	}
-	
-	function verifica() {
-		if (document.getElementById("j_pi").value == "" ||
-				document.getElementById("j_imovel").value == "" ||
-				document.getElementById("j_andar").value == "" ||
-				document.getElementById("j_complemento").value == "") {
-			document.getElementById("valErro").style.visibility = "visible";
-			return false;
-		}
-		document.getElementById("valErro").style.visibility = "hidden";
-		return true;
-	}
+		<c:if test="${updated != null and updated.booleanValue()}">
+			setTimeout(function(){ 
+				$(".alert").fadeOut();
+			}, 10000);
+		</c:if>
+		
+		$(document).ready(function() {
+			$('form input').keyup(function() {
+		        var empty = false;
+		        $('form input').each(function() {
+		            if ($(this).val() == '') {
+		                empty = true;
+		            }
+		        });
+
+		        if (empty) {
+		            $('#enviar').attr('disabled', 'disabled'); // updated according to http://stackoverflow.com/questions/7637790/how-to-remove-disabled-attribute-with-jquery-ie
+		        } else {
+		            $('#enviar').removeAttr('disabled'); // updated according to http://stackoverflow.com/questions/7637790/how-to-remove-disabled-attribute-with-jquery-ie
+		        }
+		    });
+		});
 	</script>
 		
 </head>
@@ -115,37 +111,36 @@
 		    		</c:otherwise>
 				</c:choose>
 			</c:if>
-			<div class="alert alert-danger alert-dismissable fade in" id="valErro" style="visibility: hidden;">
-				<a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>
-		      			Todos os campos devem ser preenchidos.
+			<div class="alert alert-info">
+		      	<strong>Aten&ccedil;&atilde;o</strong>: todos os campos devem ser preenchidos!
 		   	</div>
 		     
-			<form name='f' action="executaAlteracao" method="post" onsubmit="return verifica();">
+			<form name='f' action="executaAlteracao" method="post">
 				<table>
 					<tr>
-						<td>Número PI do item</td>
-						<td><input type="text" id="j_pi" name="j_pi" class="form-control long" placeholder="Número PI do item" onblur="alerta('j_pi');" /></td>
+						<td>N&uacute;mero PI do item</td>
+						<td><input type="text" id="j_pi" name="j_pi" class="form-control long" placeholder="N&uacute;mero PI do item" /></td>
 					</tr>
 					<tr>
 						<td colspan="2"><h2>Destino</h2></td>
 					</tr>
 					<tr>
-						<td>Imóvel</td>
-						<td><input type="text" id="j_imovel" name="j_imovel" class="form-control long" placeholder="Imóvel"  onblur="alerta('j_imovel');" /></td>
+						<td>Im&oacute;vel</td>
+						<td><input type="text" id="j_imovel" name="j_imovel" class="form-control long" placeholder="Im&oacute;vel" /></td>
 					</tr>
 					<tr>
 						<td>Andar</td>
-						<td><input type="text" id="j_andar" name="j_andar" class="form-control long" placeholder="Andar"  onblur="alerta('j_andar');" /></td>
+						<td><input type="text" id="j_andar" name="j_andar" class="form-control long" placeholder="Andar" /></td>
 					</tr>
 					<tr>
 						<td>Complemento</td>
-						<td><input type="text" id="j_complemento" name="j_complemento" class="form-control long" placeholder="Complemento"  onblur="alerta('j_complemento');" /></td>
+						<td><input type="text" id="j_complemento" name="j_complemento" class="form-control long" placeholder="Complemento" /></td>
 					</tr>
 						
 					<tr>
 						<td colspan="2" style="text-align: right;">
-							<input type="button" id="cancelar" value="Cancelar" class="btn btn-default" />&nbsp;
-							<input type="submit" id="enviar" value="Enviar" class="btn btn-primary" />
+							<input type="button" value="Cancelar" class="btn btn-default" onclick="history.go(-1);" />&nbsp;
+							<input type="submit" id="enviar" value="Enviar" class="btn btn-primary" disabled="disabled" />
 						</td>
 					</tr>
 				</table>

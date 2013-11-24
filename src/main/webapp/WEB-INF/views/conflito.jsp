@@ -95,6 +95,11 @@
                	<h1>Conflitos</h1>
                </div>
 		
+			<div class="alert alert-warning">
+			  <strong>Os dados da planilha s&atilde;o diferentes do que temos guardado!</strong> <br /> 
+			  Escolha que informa&ccedil;&otilde;es est&atilde;o certas para continuar. Ah, lembre-se de atualizar os dados no sistema da Unicamp.
+			</div>
+
 			<div id="demo">
 				<form>
 					<table cellpadding="0" cellspacing="0" border="0" class="display"

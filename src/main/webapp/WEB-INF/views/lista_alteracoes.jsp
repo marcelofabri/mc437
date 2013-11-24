@@ -120,7 +120,7 @@ table tbody tr.clickable:hover td {
 		<c:if test="${updated != null and updated.booleanValue()}">
 			setTimeout(function(){ 
 				$(".alert").fadeOut();
-			}, 2000);
+			}, 10000);
 		</c:if>
 		
 		$("#btnSalvar").click(function() {

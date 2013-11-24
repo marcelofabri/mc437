@@ -56,6 +56,14 @@
 			<div>
 				<h1>Entrar</h1>
 			</div>
+			
+			<c:if test="${erro != null && erro.booleanValue()}">
+				<div class="alert alert-danger alert-dismissable fade in">
+					<a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>
+        			Combina&ccedil;&atilde;o incorreta. Por favor, verifique usu&aacute;rio e senha.
+        		</div>
+			</c:if>
+			
 			<div id="demo">
 				<form class="form-horizontal" style="max-width: 30%;" role="form" name='f' 
 					  action="j_spring_security_check" method='POST'>
