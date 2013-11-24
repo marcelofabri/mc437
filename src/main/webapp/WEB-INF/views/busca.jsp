@@ -75,6 +75,9 @@ table tbody tr.clickable:hover td {
 										"sProcessing" : "Processando...",
 										"sSearch" : "Busca:",
 										"sZeroRecords" : "Nenhum resultado encontrado"
+									},
+									"fnInitComplete": function() {
+										$('#example').show();
 									}
 		}).columnFilter();
 		
@@ -100,7 +103,7 @@ table tbody tr.clickable:hover td {
 		</div>
 		<div id="demo">
 			<table cellpadding="0" cellspacing="0" border="0" class="display"
-				id="example" width="100%">
+				id="example" width="100%" style="display: none;">
 				<thead>
 					<tr>
 						<th>N&uacute;mero PI</th>

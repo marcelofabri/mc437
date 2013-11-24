@@ -41,13 +41,6 @@
 		<script type="text/javascript" language="javascript" src="media/js/bootstrap.js"></script>
 		<script type="text/javascript" language="javascript" src="media/js/bootbox.js"></script>
 		
-		<script>
-			$(document).ready(function() {
-				$("#inputUsuario").focus();
-			});
-		
-		</script>
-		
 	</head>
 	
 	<body id="dt_example">

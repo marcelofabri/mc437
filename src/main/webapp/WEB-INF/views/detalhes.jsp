@@ -104,11 +104,11 @@ div.item {
 		$('#example').dataTable(
 				{
 					"bDeferRender" : true,
-					"sPaginationType" : "full_numbers",
-					"iDisplayLength" : 25,
-					"aLengthMenu" : [
-							[ 10, 25, 50, 100, 250 ],
-							[ 10, 25, 50, 100, 250 ] ],
+					"bPaginate": false,
+			        "bLengthChange": false,
+			        "bSort": true,
+			        "bInfo": false,
+			        "bAutoWidth": false,
 					"oLanguage" : {
 						"oPaginate" : {
 							"sFirst" : "Primeira",
@@ -334,9 +334,8 @@ div.item {
 				</table>
 			</div>
 		</c:if>
-		<div id="footer">
-			<a class="voltar" href="busca">Voltar</a>
-		</div>
+		<a class="voltar" href="busca" style="position: relative; top: 20px;">Voltar</a>
 	</div>
+	
 </body>
 </html>
