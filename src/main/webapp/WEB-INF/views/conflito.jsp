@@ -35,13 +35,26 @@
 		#header a {
 			color: #FFFFFF
 		}
+		
+		span.item {
+			display: block;
+		}
+		
+		.conflito {
+			color: red;
+		}
+		
+		span.item.conflito strong {
+			color: #333;
+		}
+		
 		</style>
 		<script type="text/javascript" language="javascript" src="../media/js/jquery-1.10.2.js"></script>
 		<script type="text/javascript" language="javascript" src="../media/js/jquery.dataTables.js"></script>
 		<script type="text/javascript" language="javascript" src="../media/js/jquery.dataTables.columnFilter.js"></script>
 		<script type="text/javascript" language="javascript" src="../media/js/bootstrap.js"></script>
 		<script type="text/javascript" language="javascript" src="../media/js/bootbox.js"></script>
-
+		
 		<script type="text/javascript" charset="utf-8">
 			$(document).ready(function() {
 				$('#example').dataTable(
@@ -77,6 +90,30 @@
 						$("input[type='radio'][value='" + $(this).val() + "']").not($(this)).prop('checked', true);
 					}
 				});
+				
+				$("#example tbody tr").each(function(){
+					var cols = $(this).find("td");
+					var antigo = cols[0];
+					var novo = cols[1];
+					
+					console.info(antigo);
+					console.info(novo);
+					
+					$(antigo).find(".item").each(function(idx) {
+						var html = $(this).html();
+						console.info(html);
+						
+						var itemNovo = $(novo).find(".item:eq(" + idx + ")");
+						
+						console.info(itemNovo);
+						
+						if (html != itemNovo.html()) {
+							$(this).addClass("conflito");
+							itemNovo.addClass("conflito");	
+						}
+						 
+					});
+				});
 			});
 		</script>
 	</head>
@@ -96,7 +133,7 @@
                </div>
 		
 			<div class="alert alert-warning">
-			  <strong>Os dados da planilha s&atilde;o diferentes do que temos guardado!</strong> <br /> 
+			  <span style="display: block;"><strong>Os dados da planilha s&atilde;o diferentes do que temos guardado!</strong></span> 
 			  Escolha que informa&ccedil;&otilde;es est&atilde;o certas para continuar. Ah, lembre-se de atualizar os dados no sistema da Unicamp.
 			</div>
 
@@ -115,44 +152,44 @@
 									<tr>
 										<td style="vertical-align:top;">
 											<input type="radio" name="${entry.patrimonioAntigo.chapinha}" value="BD" style="float:left; width:20px" />
-											<div style="margin-left:35px; width:500px; min-height:120px;">
-												<strong>&Oacute;rg&atilde;o:</strong> ${entry.patrimonioAntigo.orgao} <br />
-						                        <strong>PI:</strong> ${entry.patrimonioAntigo.chapinha} <br />
-						                        <strong>Processo:</strong> ${entry.patrimonioAntigo.processo} <br />
-						                        <strong>Número de S&eacute;rie:</strong> ${entry.patrimonioAntigo.numeroSerie} <br />
-						                        <strong>Documento Fiscal:</strong> ${entry.patrimonioAntigo.documentoFiscal} <br />
-						                        <strong>Data Aquisi&ccedil;&atilde;o:</strong> <fmt:formatDate value="${entry.patrimonioAntigo.dataAquisicao}" pattern="dd/MM/yyyy" /> <br />
-						                        <strong>Data Fim:</strong> <fmt:formatDate value="${entry.patrimonioAntigo.dataFim}" pattern="dd/MM/yyyy" /> <br />
-						                        <strong>Valor Corrigido:</strong> ${entry.patrimonioAntigo.valorCorrigido} <br />
-						                        <strong>Descri&ccedil;&atilde;o:</strong> ${entry.patrimonioAntigo.descricao} <br />
-						                        <strong>Marca:</strong> ${entry.patrimonioAntigo.marca} <br />
-						                        <strong>Modelo:</strong> ${entry.patrimonioAntigo.modelo} <br />
-						                        <strong>Im&oacute;vel:</strong> ${entry.patrimonioAntigo.localizacao.imovel} <br />
-						                        <strong>Andar:</strong> ${entry.patrimonioAntigo.localizacao.andar} <br />
-						                        <strong>Complemento:</strong> ${entry.patrimonioAntigo.localizacao.complemento} <br />
-						                        <strong>Situa&ccedil;&atilde;o:</strong> ${entry.patrimonioAntigo.situacao.toString()} <br />
-						                        <strong>Tipo:</strong> ${entry.patrimonioAntigo.tipo.toString()}
+											<div style="margin-left:35px; min-height:120px;">
+						                        <span class="item"><strong>PI:</strong> ${entry.patrimonioAntigo.chapinha}</span>
+						                        <span class="item"><strong>&Oacute;rg&atilde;o:</strong> ${entry.patrimonioAntigo.orgao}</span>
+						                        <span class="item"><strong>Processo:</strong> ${entry.patrimonioAntigo.processo}</span>
+						                        <span class="item"><strong>Número de S&eacute;rie:</strong> ${entry.patrimonioAntigo.numeroSerie}</span>
+						                        <span class="item"><strong>Documento Fiscal:</strong> ${entry.patrimonioAntigo.documentoFiscal}</span>
+						                        <span class="item"><strong>Data Aquisi&ccedil;&atilde;o:</strong> <fmt:formatDate value="${entry.patrimonioAntigo.dataAquisicao}" pattern="dd/MM/yyyy" /></span>
+						                        <span class="item"><strong>Data Fim:</strong> <fmt:formatDate value="${entry.patrimonioAntigo.dataFim}" pattern="dd/MM/yyyy" /></span>
+						                        <span class="item"><strong>Valor Corrigido:</strong> ${entry.patrimonioAntigo.valorCorrigido}</span>
+						                        <span class="item"><strong>Descri&ccedil;&atilde;o:</strong> ${entry.patrimonioAntigo.descricao}</span>
+						                        <span class="item"><strong>Marca:</strong> ${entry.patrimonioAntigo.marca}</span>
+						                        <span class="item"><strong>Modelo:</strong> ${entry.patrimonioAntigo.modelo}</span>
+						                        <span class="item"><strong>Im&oacute;vel:</strong> ${entry.patrimonioAntigo.localizacao.imovel}</span>
+						                        <span class="item"><strong>Andar:</strong> ${entry.patrimonioAntigo.localizacao.andar}</span>
+						                        <span class="item"><strong>Complemento:</strong> ${entry.patrimonioAntigo.localizacao.complemento}</span>
+						                        <span class="item"><strong>Situa&ccedil;&atilde;o:</strong> ${entry.patrimonioAntigo.situacao.toString()}</span>
+						                        <span class="item"><strong>Tipo:</strong> ${entry.patrimonioAntigo.tipo.toString()}</span>
 											</div>
 										</td>
 										<td style="vertical-align:top;">
 											<input type="radio" name="${entry.patrimonioNovo.chapinha}" value="PLANILHA" style="float:left; width:20px" />
-											<div style="margin-left:35px; width:500px; min-height:120px;">
-												<strong>&Oacute;rg&atilde;o:</strong> ${entry.patrimonioNovo.orgao} <br />
-						                        <strong>PI:</strong> ${entry.patrimonioNovo.chapinha} <br />
-						                        <strong>Processo:</strong> ${entry.patrimonioNovo.processo} <br />
-						                        <strong>Número de S&eacute;rie:</strong> ${entry.patrimonioNovo.numeroSerie} <br />
-						                        <strong>Documento Fiscal:</strong> ${entry.patrimonioNovo.documentoFiscal} <br />
-						                        <strong>Data Aquisi&ccedil;&atilde;o:</strong> <fmt:formatDate value="${entry.patrimonioNovo.dataAquisicao}" pattern="dd/MM/yyyy" /> <br />
-						                        <strong>Data Fim:</strong> <fmt:formatDate value="${entry.patrimonioNovo.dataFim}" pattern="dd/MM/yyyy" /> <br />
-						                        <strong>Valor Corrigido:</strong> ${entry.patrimonioNovo.valorCorrigido} <br />
-						                        <strong>Descri&ccedil;&atilde;o:</strong> ${entry.patrimonioNovo.descricao} <br />
-						                        <strong>Marca:</strong> ${entry.patrimonioNovo.marca} <br />
-						                        <strong>Modelo:</strong> ${entry.patrimonioNovo.modelo} <br />
-						                        <strong>Im&oacute;vel:</strong> ${entry.patrimonioNovo.localizacao.imovel} <br />
-						                        <strong>Andar:</strong> ${entry.patrimonioNovo.localizacao.andar} <br />
-						                        <strong>Complemento:</strong> ${entry.patrimonioNovo.localizacao.complemento} <br />
-						                        <strong>Situa&ccedil;&atilde;o:</strong> ${entry.patrimonioNovo.situacao.toString()} <br />
-						                        <strong>Tipo:</strong> ${entry.patrimonioNovo.tipo.toString()}
+											<div style="margin-left:35px; min-height:120px;">
+												<span class="item"><strong>PI:</strong> ${entry.patrimonioNovo.chapinha}</span>
+												<span class="item"><strong>&Oacute;rg&atilde;o:</strong> ${entry.patrimonioNovo.orgao}</span>
+						                        <span class="item"><strong>Processo:</strong> ${entry.patrimonioNovo.processo}</span>
+						                        <span class="item"><strong>Número de S&eacute;rie:</strong> ${entry.patrimonioNovo.numeroSerie}</span>
+						                        <span class="item"><strong>Documento Fiscal:</strong> ${entry.patrimonioNovo.documentoFiscal}</span>
+						                        <span class="item"><strong>Data Aquisi&ccedil;&atilde;o:</strong> <fmt:formatDate value="${entry.patrimonioNovo.dataAquisicao}" pattern="dd/MM/yyyy" /></span>
+						                        <span class="item"><strong>Data Fim:</strong> <fmt:formatDate value="${entry.patrimonioNovo.dataFim}" pattern="dd/MM/yyyy" /></span>
+						                        <span class="item"><strong>Valor Corrigido:</strong> ${entry.patrimonioNovo.valorCorrigido}</span>
+						                        <span class="item"><strong>Descri&ccedil;&atilde;o:</strong> ${entry.patrimonioNovo.descricao}</span>
+						                        <span class="item"><strong>Marca:</strong> ${entry.patrimonioNovo.marca}</span>
+						                        <span class="item"><strong>Modelo:</strong> ${entry.patrimonioNovo.modelo}</span>
+						                        <span class="item"><strong>Im&oacute;vel:</strong> ${entry.patrimonioNovo.localizacao.imovel}</span>
+						                        <span class="item"><strong>Andar:</strong> ${entry.patrimonioNovo.localizacao.andar}</span>
+						                        <span class="item"><strong>Complemento:</strong> ${entry.patrimonioNovo.localizacao.complemento}</span>
+						                        <span class="item"><strong>Situa&ccedil;&atilde;o:</strong> ${entry.patrimonioNovo.situacao.toString()}</span>
+						                        <span class="item"><strong>Tipo:</strong> ${entry.patrimonioNovo.tipo.toString()}</span>
 											</div>
 										</td>
 									</tr>

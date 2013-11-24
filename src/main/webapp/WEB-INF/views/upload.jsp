@@ -15,6 +15,7 @@
 			@import "../media/css/demo_page.css";
 			@import "../media/css/jquery.dataTables.css";
 			@import "../media/css/bootstrap.css";
+			@import "../media/css/ladda-themeless.css";
 		</style>
 		
 		<style>
@@ -38,6 +39,9 @@
 		<script type="text/javascript" language="javascript" src="../media/js/jquery.dataTables.columnFilter.js"></script>
 		<script type="text/javascript" language="javascript" src="../media/js/bootstrap.js"></script>
 		<script type="text/javascript" language="javascript" src="../media/js/bootbox.js"></script>
+		<script type="text/javascript" language="javascript" src="../media/js/spin.js"></script>
+		<script type="text/javascript" language="javascript" src="../media/js/ladda.js"></script>
+		
 		
 		<script type="text/javascript" charset="utf-8">
 			$(document).ready(function() {
@@ -52,6 +56,8 @@
 						$(".alert").fadeOut();
 					}, 10000);
 				</c:if>
+				
+				Ladda.bind( 'button[type=submit]' );
 			});
 		</script>
 		
@@ -95,7 +101,8 @@
 				<div class="form-group">
 					<input type="file" id="inputPlanilha" name="file" accept="application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"></input>
 				</div>
-				<input type="submit" id="btnSubmit" value="Enviar" class="btn btn-primary" disabled="disabled"></input>
+				
+				<button type="submit" id="btnSubmit" class="btn btn-primary ladda-button" data-style="expand-right" disabled="disabled"><span class="ladda-label">Enviar</span></button>
 				
 			</form>
 		</div>
