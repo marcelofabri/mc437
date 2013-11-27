@@ -15,6 +15,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -70,15 +71,27 @@ public class BuscaController {
 			@RequestParam String bem) {
 
 		Patrimonio p = entityManager.find(Patrimonio.class, bem);
-		Query hist = entityManager
-				.createQuery("SELECT ap FROM AlteracaoPatrimonio ap WHERE ap.patrimonio.chapinha = :chapinha AND ap.status != :status");
-		hist.setParameter("chapinha", bem);
-		hist.setParameter("status", StatusAlteracaoPatrimonio.PENDENTE);
-
+		
+		Authentication authentication = SecurityContextHolder.getContext()
+				.getAuthentication();
+		
 		ModelAndView mav = new ModelAndView("detalhes.jsp");
 		mav.addObject("pventry", p);
-		mav.addObject("hist", hist.getResultList());
-
+		
+		for (GrantedAuthority auth : authentication.getAuthorities()) {
+            if ("ROLE_ADMIN".equals(auth.getAuthority())) {
+            	
+            	Query hist = entityManager
+        				.createQuery("SELECT ap FROM AlteracaoPatrimonio ap WHERE ap.patrimonio.chapinha = :chapinha AND ap.status != :status");
+        		hist.setParameter("chapinha", bem);
+        		hist.setParameter("status", StatusAlteracaoPatrimonio.PENDENTE);
+        		
+        		mav.addObject("hist", hist.getResultList());
+        		
+        		break;
+            }
+        }
+		
 		return mav;
 	}
 	
