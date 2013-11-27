@@ -140,23 +140,6 @@
                	<h1>Conflitos</h1>
                </div>
 
-			<c:if test="${updated != null}">
-				<c:choose>
-					<c:when test="${updated.booleanValue()}">
-		        		<div class="alert alert-success alert-dismissable">
-						  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-						  Planilha atualizada com sucesso!
-						</div>
-		   			 </c:when>
-					<c:otherwise>
-						<div class="alert alert-danger alert-dismissable">
-						  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-						  N&atilde;o foi poss&iacute;vel atualizar a planilha. Que tal tentar novamente?
-						</div>
-		    		</c:otherwise>
-				</c:choose>
-			</c:if>
-					
 			<div class="alert alert-warning">
 			  <span style="display: block;"><strong>Os dados da planilha s&atilde;o diferentes do que temos guardado!</strong></span> 
 			  Escolha que informa&ccedil;&otilde;es est&atilde;o certas para continuar. Ah, lembre-se de atualizar os dados no sistema da Unicamp.

@@ -129,7 +129,7 @@ public class BuscaController {
 	
 	@RequestMapping(value = "/admin/upload", method = RequestMethod.GET)
 	@Transactional
-	public ModelAndView upload(ModelMap model) {
+	public ModelAndView upload() {
 		ModelAndView mav = new ModelAndView("upload.jsp");
 
 		return mav;
@@ -290,7 +290,7 @@ public class BuscaController {
 			entityManager.flush();
 		}
 		
-		ModelAndView mav = new ModelAndView("conflito.jsp");
+		ModelAndView mav = upload();
 		mav.addObject("updated", ! erro);
     	return mav;	
 	}
