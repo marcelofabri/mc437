@@ -85,25 +85,18 @@
 					}
 				});
 				
-				$("input[type='radio'][name='radioFoot']").click(function() {
-					if ($(this).is(":checked")) {
-						$("input[type='radio'][value='" + $(this).val() + "']").not($(this)).prop('checked', true);
-					}
+				$("#btnSelecionarTodosBD").click(function (){
+					$("input[type='radio'][value='BD']").prop('checked', true);
+					verificarStatusBotaoSalvar();
+				});
+				
+				$("#btnSelecionarTodosPlanilha").click(function (){
+					$("input[type='radio'][value='PLANILHA']").prop('checked', true);
+					verificarStatusBotaoSalvar();
 				});
 				
 				$("input[type='radio']").click(function() {
-					var empty = false;
-			        $('form input').each(function() {
-			            if ($(this).val() == '' && $(this).attr('name') != 'radioFoot') {
-			                empty = true;
-			            }
-			        });
-
-			        if (empty) {
-			            $('#btnSalvar').attr('disabled', 'disabled');
-			        } else {
-			            $('#btnSalvar').removeAttr('disabled');
-			        }
+					verificarStatusBotaoSalvar();
 				});
 				
 				$("#example tbody tr").each(function(){
@@ -123,6 +116,21 @@
 					});
 				});
 			});
+			
+			function verificarStatusBotaoSalvar() {
+				var empty = false;
+		        $('form input').each(function() {
+		            if ($(this).val() == '') {
+		                empty = true;
+		            }
+		        });
+
+		        if (empty) {
+		            $('#btnSalvar').attr('disabled', 'disabled');
+		        } else {
+		            $('#btnSalvar').removeAttr('disabled');
+		        }
+			}
 		</script>
 	</head>
 	
@@ -210,8 +218,8 @@
 							</tr>
 						</tfoot>
 					</table>
-					<input type="radio" name="radioFoot" value="BD"/> Selecionar todos
-					<input type="radio" name="radioFoot" value="PLANILHA" style="margin-left:500px" /> Selecionar todos
+					<button type="button" class="btn btn-default" id="btnSelecionarTodosBD" style="margin-top: 20px;">Selecionar todos anteriores</button>
+					<button type="button" class="btn btn-default" id="btnSelecionarTodosPlanilha" style="position: absolute; left: 50%; margin-top: 20px;">Selecionar todos novos</button>
 					
 					<button type="submit" class="btn btn-primary css_right" id="btnSalvar" style="margin-top: 20px; margin-right: 5px;" disabled="disabled">Salvar</button>
 				</form>
