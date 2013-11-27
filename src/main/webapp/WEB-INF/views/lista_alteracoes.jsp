@@ -61,7 +61,7 @@ table tbody tr.clickable:hover td {
 							        "bInfo": false,
 							        "bAutoWidth": false,
 									"oLanguage" : {
-										"sEmptyTable" : "Não há dados disponíveis",
+										"sEmptyTable" : "Não há alterações pendentes",
 										"sInfoEmpty" : "Mostrando 0 a 0 de 0 itens",
 										"sInfoThousands" : ".",
 										"sLoadingRecords" : "Carregando...",
