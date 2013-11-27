@@ -69,9 +69,9 @@
 					  action="j_spring_security_check" method='POST'>
 					  
 				  <div class="form-group">
-				    <label for="inputUsuario" class="col-sm-2 control-label">Usuário</label>
+				    <label for="inputUsuario" class="col-sm-2 control-label">Usu&aacute;rio</label>
 				    <div class="col-sm-10">
-				      <input type="text" class="form-control" placeholder="Usuário" autofocus="autofocus" name="j_username" id="inputUsuario">
+				      <input type="text" class="form-control" placeholder="Usu&aacute;rio" autofocus="autofocus" name="j_username" id="inputUsuario">
 				    </div>
 				  </div>
 				  <div class="form-group">

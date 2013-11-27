@@ -35,7 +35,8 @@ public class MailManager
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress("patrimonio.ic.unicamp@gmail.com"));
 			message.setRecipients(Message.RecipientType.TO,
-				InternetAddress.parse("lminchillo2@gmail.com,marcelofabri.mf@gmail.com"));
+				InternetAddress.parse("ra102986@students.ic.unicamp.br,marcelofabri.mf@gmail.com"));
+			message.setReplyTo(InternetAddress.parse("marcelofabri.mf@gmail.com"));
 			message.setSubject("Testing Subject");
 			message.setText("Dear Mail Crawler,"
 				+ "\n\n No spam to my email, please!");

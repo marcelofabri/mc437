@@ -95,6 +95,13 @@ public class BuscaController {
 		return mav;
 	}
 	
+	@RequestMapping(value = { "/email", "" }, method = RequestMethod.GET)
+	@Transactional
+	public String testeEmail(ModelMap model) {
+		new MailManager();
+		return "home.jsp";
+	}
+	
 	@RequestMapping(value = { "/home", "" }, method = RequestMethod.GET)
 	@Transactional
 	public String home(ModelMap model) {
