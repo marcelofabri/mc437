@@ -91,21 +91,29 @@
 					}
 				});
 				
+				$("input[type='radio']").click(function() {
+					var empty = false;
+			        $('form input').each(function() {
+			            if ($(this).val() == '' && $(this).attr('name') != 'radioFoot') {
+			                empty = true;
+			            }
+			        });
+
+			        if (empty) {
+			            $('#btnSalvar').attr('disabled', 'disabled');
+			        } else {
+			            $('#btnSalvar').removeAttr('disabled');
+			        }
+				});
+				
 				$("#example tbody tr").each(function(){
 					var cols = $(this).find("td");
 					var antigo = cols[0];
 					var novo = cols[1];
 					
-					console.info(antigo);
-					console.info(novo);
-					
 					$(antigo).find(".item").each(function(idx) {
 						var html = $(this).html();
-						console.info(html);
-						
 						var itemNovo = $(novo).find(".item:eq(" + idx + ")");
-						
-						console.info(itemNovo);
 						
 						if (html != itemNovo.html()) {
 							$(this).addClass("conflito");
@@ -131,14 +139,31 @@
                <div>
                	<h1>Conflitos</h1>
                </div>
-		
+
+			<c:if test="${updated != null}">
+				<c:choose>
+					<c:when test="${updated.booleanValue()}">
+		        		<div class="alert alert-success alert-dismissable">
+						  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+						  Planilha atualizada com sucesso!
+						</div>
+		   			 </c:when>
+					<c:otherwise>
+						<div class="alert alert-danger alert-dismissable">
+						  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+						  N&atilde;o foi poss&iacute;vel atualizar a planilha. Que tal tentar novamente?
+						</div>
+		    		</c:otherwise>
+				</c:choose>
+			</c:if>
+					
 			<div class="alert alert-warning">
 			  <span style="display: block;"><strong>Os dados da planilha s&atilde;o diferentes do que temos guardado!</strong></span> 
 			  Escolha que informa&ccedil;&otilde;es est&atilde;o certas para continuar. Ah, lembre-se de atualizar os dados no sistema da Unicamp.
 			</div>
-
+			
 			<div id="demo">
-				<form>
+				<form method="post" action="resolverConflitos">
 					<table cellpadding="0" cellspacing="0" border="0" class="display"
 						id="example" width="100%">
 						<thead>
@@ -151,7 +176,7 @@
 							<c:forEach var="entry" items="${lista}">
 									<tr>
 										<td style="vertical-align:top;">
-											<input type="radio" name="${entry.patrimonioAntigo.chapinha}" value="BD" style="float:left; width:20px" />
+											<input type="radio" name="conflito_${entry.patrimonioAntigo.chapinha}" value="BD" style="float:left; width:20px" />
 											<div style="margin-left:35px; min-height:120px;">
 						                        <span class="item"><strong>PI:</strong> ${entry.patrimonioAntigo.chapinha}</span>
 						                        <span class="item"><strong>&Oacute;rg&atilde;o:</strong> ${entry.patrimonioAntigo.orgao}</span>
@@ -172,7 +197,7 @@
 											</div>
 										</td>
 										<td style="vertical-align:top;">
-											<input type="radio" name="${entry.patrimonioNovo.chapinha}" value="PLANILHA" style="float:left; width:20px" />
+											<input type="radio" name="conflito_${entry.patrimonioNovo.chapinha}" value="PLANILHA" style="float:left; width:20px" />
 											<div style="margin-left:35px; min-height:120px;">
 												<span class="item"><strong>PI:</strong> ${entry.patrimonioNovo.chapinha}</span>
 												<span class="item"><strong>&Oacute;rg&atilde;o:</strong> ${entry.patrimonioNovo.orgao}</span>
@@ -204,6 +229,8 @@
 					</table>
 					<input type="radio" name="radioFoot" value="BD"/> Selecionar todos
 					<input type="radio" name="radioFoot" value="PLANILHA" style="margin-left:500px" /> Selecionar todos
+					
+					<button type="submit" class="btn btn-primary css_right" id="btnSalvar" style="margin-top: 20px; margin-right: 5px;" disabled="disabled">Salvar</button>
 				</form>
 			</div>
         </div>

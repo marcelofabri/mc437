@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.PushbackInputStream;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -234,6 +235,65 @@ public class BuscaController {
         	return mav;
         }
 	}
+	
+	@RequestMapping(value = "/admin/resolverConflitos", method = RequestMethod.POST)
+	@Transactional
+	public ModelAndView resolverConflitos(WebRequest webRequest, Model model,
+			@ModelAttribute("conflitos") List<Conflito> conflitos,
+			@ModelAttribute("patrimoniosAInserir") List<Patrimonio> patrimoniosAInserir) {
+		
+		Map<String, String[]> params = webRequest.getParameterMap();
+
+		Map<String, String> chapinhas = new HashMap<String, String>();
+		
+		for (Map.Entry<String, String[]> entry : params.entrySet()) {
+			String key = entry.getKey();
+
+			if (key.startsWith("conflito_")) {
+
+				String[] value = entry.getValue();
+
+				if (value.length > 0) {
+					chapinhas.put(key.replaceFirst("conflito_", ""), value[0]);
+				}
+			}
+		}
+
+		boolean erro = false;
+		for (Conflito c : conflitos) {
+			String chapinha = c.getPatrimonioAntigo().getChapinha();
+			if (! chapinhas.containsKey(chapinha)) {
+				erro = true;
+				break;
+			}
+			String value = chapinhas.get(chapinha);
+			if (! "PLANILHA".equalsIgnoreCase(value) && ! "BD".equalsIgnoreCase(value)) {
+				erro = true;
+				break;
+			}
+		}
+		
+		if (! erro) {
+			for (Conflito conflito : conflitos) {
+				String value = chapinhas.get(conflito.getPatrimonioAntigo().getChapinha());
+				if ("PLANILHA".equals(value)) {
+					entityManager.merge(conflito.getPatrimonioNovo());
+				} else {
+					entityManager.merge(conflito.getPatrimonioAntigo());
+				}
+			}
+			
+			for (Patrimonio p : patrimoniosAInserir) {
+				entityManager.merge(p);
+			}
+			
+			entityManager.flush();
+		}
+		
+		ModelAndView mav = new ModelAndView("conflito.jsp");
+		mav.addObject("updated", ! erro);
+    	return mav;	
+	}
 
 	@RequestMapping(value = "/executaAlteracao", method = RequestMethod.POST)
 	@Transactional
@@ -243,7 +303,6 @@ public class BuscaController {
 			@RequestParam("j_andar") String andar,
 			@RequestParam("j_complemento") String complemento,
 			WebRequest webRequest, Model model) {
-		//ModelMap modelMap = new ModelMap();
 		boolean updated = true;
 
 		AlteracaoPatrimonio ap = new AlteracaoPatrimonio();
