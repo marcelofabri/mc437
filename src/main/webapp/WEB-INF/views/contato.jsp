@@ -36,6 +36,25 @@
 				<script type="text/javascript" language="javascript" src="media/js/jquery.dataTables.columnFilter.js"></script>
 				<script type="text/javascript" language="javascript" src="media/js/bootstrap.js"></script>
 				<script type="text/javascript" language="javascript" src="media/js/bootbox.js"></script>
+				
+				<script>
+					$(document).ready(function() {
+						$('form input, form textarea').keyup(function() {
+					        var empty = false;
+					        $('form input, form textarea').each(function() {
+					            if ($(this).val() == '') {
+					                empty = true;
+					            }
+					        });
+	
+					        if (empty) {
+					            $('#enviar').attr('disabled', 'disabled'); 
+					        } else {
+					            $('#enviar').removeAttr('disabled'); 
+					        }
+					    });
+					});
+				</script>
                 
         </head>
         
@@ -50,12 +69,47 @@
                                 Sistema de Controle de Patrim&ocirc;nio - Instituto de Computa&ccedil;&atilde;o
                         </div>
                         
-                        <div>
-                                <h1>Contato</h1>
-                        </div>
+                        <h1>Contato</h1>
                         
                         <strong>Telefone:</strong> (19) 3521-5885 <br />
                         <strong>Email:</strong> <a href="mailto:patrimonio@ic.unicamp.br">patrimonio@ic.unicamp.br</a>
+                        
+                        <div id="demo">
+                        	<h1>Fale Conosco</h1>
+							<form class="form-horizontal" style="max-width: 50%;" role="form" name='f' 
+								  action="processarContato" method='POST'>
+								  
+							  <div class="form-group">
+							    <label for="inputNome" class="col-sm-2 control-label">Nome</label>
+							    <div class="col-sm-10">
+							      <input type="text" class="form-control" placeholder="Nome" autofocus="autofocus" name="nome" id="inputNome">
+							    </div>
+							  </div>
+							  <div class="form-group">
+							    <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+							    <div class="col-sm-10">
+							      <input type="email" class="form-control" placeholder="Email" name="email" id="inputEmail">
+							    </div>
+							  </div>
+							  <div class="form-group">
+							    <label for="inputAssunto" class="col-sm-2 control-label">Assunto</label>
+							    <div class="col-sm-10">
+							      <input type="text" class="form-control" placeholder="Assunto" name="assunto" id="inputAssunto">
+							    </div>
+							  </div>
+							  <div class="form-group">
+							    <label for="inputMensagem" class="col-sm-2 control-label">Mensagem</label>
+							    <div class="col-sm-10">
+							      <textarea class="form-control" rows="5" name="mensagem" id="inputMensagem" placeholder="Mensagem"></textarea>
+							    </div>
+							  </div>
+							  <div class="form-group">
+							    <div class="col-sm-offset-2 col-sm-10">
+							      <input type="submit" id="enviar" value="Enviar" class="btn btn-primary css_right" disabled="disabled" />
+							    </div>
+							  </div>
+							</form>
+						</div>
                 </div>
         </body>
 </html>
