@@ -10,41 +10,40 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-public class MailManager
-{
-	public MailManager()
-	{
+public class MailUtils {
+	public static void enviarEmail(String nome, String email, String assunto, String mensagem) {
 		final String username = "patrimonio.ic.unicamp@gmail.com";
 		final String password = "xC32eQkXArzKCpDDpDKqvHreGuXeYT";
- 
+
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.starttls.enable", "true");
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.port", "587");
- 
+
 		Session session = Session.getInstance(props,
-		  new javax.mail.Authenticator() {
+				new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
 				return new PasswordAuthentication(username, password);
 			}
-		  });
- 
+		});
+
 		try {
- 
-			Message message = new MimeMessage(session);
+
+			MimeMessage message = new MimeMessage(session);
+
 			message.setFrom(new InternetAddress("patrimonio.ic.unicamp@gmail.com"));
 			message.setRecipients(Message.RecipientType.TO,
-				InternetAddress.parse("ra102986@students.ic.unicamp.br,marcelofabri.mf@gmail.com"));
-			message.setReplyTo(InternetAddress.parse("marcelofabri.mf@gmail.com"));
-			message.setSubject("Testing Subject");
-			message.setText("Dear Mail Crawler,"
-				+ "\n\n No spam to my email, please!");
- 
+					InternetAddress.parse("lminchillo2@gmail.com,marcelofabri.mf@gmail.com"));
+			message.setReplyTo(InternetAddress.parse(email));
+			message.setSubject("[Sistema de Controle de Patrim\u00F4nio] " + assunto, "UTF-8");
+
+			mensagem = "Sistema de Controle de Patrim\u00F4nio\n\nMensagem enviada por: " + nome + "\n\n\n\nMensagem original:\n\n" + mensagem;
+
+			message.setHeader("Content-Type", "text/plain; charset=UTF-8");
+			message.setText(mensagem, "UTF-8");
+
 			Transport.send(message);
- 
-			System.out.println("Done");
- 
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
 		}

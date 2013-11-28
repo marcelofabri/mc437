@@ -95,11 +95,15 @@ public class BuscaController {
 		return mav;
 	}
 	
-	@RequestMapping(value = { "/email", "" }, method = RequestMethod.GET)
+	@RequestMapping(value = "/contato", method = RequestMethod.POST)
 	@Transactional
-	public String testeEmail(ModelMap model) {
-		new MailManager();
-		return "home.jsp";
+	public ModelAndView enviarEmail(ModelMap model, @RequestParam("nome") String nome, 
+			@RequestParam("email") String email, @RequestParam("assunto") String assunto, 
+			@RequestParam("mensagem") String mensagem) {
+		MailUtils.enviarEmail(nome, email, assunto, mensagem);
+		ModelAndView mav = new ModelAndView("contato.jsp");
+		mav.addObject("updated", true);
+		return mav;
 	}
 	
 	@RequestMapping(value = { "/home", "" }, method = RequestMethod.GET)
