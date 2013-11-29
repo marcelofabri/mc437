@@ -81,9 +81,8 @@ table tbody tr.clickable:hover td {
 									}
 		}).columnFilter();
 		
-		$("table tbody tr.clickable").click(function() {
+		$(document).on("click", "table tbody tr.clickable", function() {
 			var chapinha = $(this).find(".chapinha").html();
-			console.info(chapinha);
 			location.href = 'detalhes?bem=' + chapinha; 
 		});
 	});
